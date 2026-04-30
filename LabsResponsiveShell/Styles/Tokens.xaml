@@ -26,6 +26,33 @@
       <SolidColorBrush x:Key="AccentMutedBrush" Color="{StaticResource AccentMutedColor}" />
       <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
       <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource HoverColor}" />
+
+      <Color x:Key="BubbleMineColor">#243A44</Color>
+      <SolidColorBrush x:Key="BubbleMineBrush" Color="{StaticResource BubbleMineColor}" />
+      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
+
+      <Color x:Key="PresenceOnlineColor">#22C55E</Color>
+      <Color x:Key="PresenceAwayColor">#CA8A06</Color>
+      <SolidColorBrush x:Key="PresenceOnlineBrush" Color="{StaticResource PresenceOnlineColor}" />
+      <SolidColorBrush x:Key="PresenceAwayBrush" Color="{StaticResource PresenceAwayColor}" />
+
+      <SolidColorBrush x:Key="UnreadBadgeBackgroundBrush" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="UnreadBadgeForegroundBrush" Color="#FFFFFFFF" />
+
+      <SolidColorBrush x:Key="ConversationRowSelectedBrush" Opacity="0.45" Color="{StaticResource AccentMutedColor}" />
+
+      <Color x:Key="AvatarTone0Color">#2A3548</Color>
+      <Color x:Key="AvatarTone1Color">#3A2F45</Color>
+      <Color x:Key="AvatarTone2Color">#243A36</Color>
+      <Color x:Key="AvatarTone3Color">#3A3828</Color>
+      <Color x:Key="AvatarTone4Color">#2C3042</Color>
+      <Color x:Key="AvatarTone5Color">#254045</Color>
+      <SolidColorBrush x:Key="AvatarTone0Brush" Color="{StaticResource AvatarTone0Color}" />
+      <SolidColorBrush x:Key="AvatarTone1Brush" Color="{StaticResource AvatarTone1Color}" />
+      <SolidColorBrush x:Key="AvatarTone2Brush" Color="{StaticResource AvatarTone2Color}" />
+      <SolidColorBrush x:Key="AvatarTone3Brush" Color="{StaticResource AvatarTone3Color}" />
+      <SolidColorBrush x:Key="AvatarTone4Brush" Color="{StaticResource AvatarTone4Color}" />
+      <SolidColorBrush x:Key="AvatarTone5Brush" Color="{StaticResource AvatarTone5Color}" />
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Light">
@@ -50,12 +77,40 @@
       <SolidColorBrush x:Key="AccentMutedBrush" Color="{StaticResource AccentMutedColor}" />
       <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
       <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource HoverColor}" />
+
+      <Color x:Key="BubbleMineColor">#D8F2EC</Color>
+      <SolidColorBrush x:Key="BubbleMineBrush" Color="{StaticResource BubbleMineColor}" />
+      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
+
+      <Color x:Key="PresenceOnlineColor">#15803D</Color>
+      <Color x:Key="PresenceAwayColor">#CA8A06</Color>
+      <SolidColorBrush x:Key="PresenceOnlineBrush" Color="{StaticResource PresenceOnlineColor}" />
+      <SolidColorBrush x:Key="PresenceAwayBrush" Color="{StaticResource PresenceAwayColor}" />
+
+      <SolidColorBrush x:Key="UnreadBadgeBackgroundBrush" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="UnreadBadgeForegroundBrush" Color="#FFFFFFFF" />
+
+      <SolidColorBrush x:Key="ConversationRowSelectedBrush" Opacity="0.55" Color="{StaticResource AccentMutedColor}" />
+
+      <Color x:Key="AvatarTone0Color">#DCE6F5</Color>
+      <Color x:Key="AvatarTone1Color">#E8DCF0</Color>
+      <Color x:Key="AvatarTone2Color">#D8EDE8</Color>
+      <Color x:Key="AvatarTone3Color">#EEE8D8</Color>
+      <Color x:Key="AvatarTone4Color">#E0E4F2</Color>
+      <Color x:Key="AvatarTone5Color">#D6EBEE</Color>
+      <SolidColorBrush x:Key="AvatarTone0Brush" Color="{StaticResource AvatarTone0Color}" />
+      <SolidColorBrush x:Key="AvatarTone1Brush" Color="{StaticResource AvatarTone1Color}" />
+      <SolidColorBrush x:Key="AvatarTone2Brush" Color="{StaticResource AvatarTone2Color}" />
+      <SolidColorBrush x:Key="AvatarTone3Brush" Color="{StaticResource AvatarTone3Color}" />
+      <SolidColorBrush x:Key="AvatarTone4Brush" Color="{StaticResource AvatarTone4Color}" />
+      <SolidColorBrush x:Key="AvatarTone5Brush" Color="{StaticResource AvatarTone5Color}" />
     </ResourceDictionary>
 
   </ResourceDictionary.ThemeDictionaries>
 
   <x:Double x:Key="Space4">4</x:Double>
   <x:Double x:Key="Space8">8</x:Double>
+  <x:Double x:Key="Space10">10</x:Double>
   <x:Double x:Key="Space12">12</x:Double>
   <x:Double x:Key="Space16">16</x:Double>
   <x:Double x:Key="Space24">24</x:Double>
@@ -75,14 +130,38 @@
   <x:Double x:Key="FontSize14">14</x:Double>
   <x:Double x:Key="FontSize15">15</x:Double>
   <x:Double x:Key="FontSize16">16</x:Double>
+  <x:Double x:Key="FontSize18">18</x:Double>
   <x:Double x:Key="FontSize20">20</x:Double>
   <x:Double x:Key="FontSize24">24</x:Double>
   <x:Double x:Key="FontSize28">28</x:Double>
+  <x:Double x:Key="FontSize32">32</x:Double>
   <x:Double x:Key="FontSize40">40</x:Double>
   <x:Double x:Key="FontSize56">56</x:Double>
 
   <x:Double x:Key="ReadingColumnMaxWidth">640</x:Double>
   <x:Double x:Key="ShellContentMaxWidth">1240</x:Double>
   <x:Double x:Key="NavRailWidth">240</x:Double>
+
+  <CornerRadius x:Key="RadiusChatMine">16,16,6,16</CornerRadius>
+  <CornerRadius x:Key="RadiusChatTheirs">16,16,16,6</CornerRadius>
+
+  <Thickness x:Key="InsetChatRail">16,24,16,24</Thickness>
+  <Thickness x:Key="InsetThreadBackBar">16,12,16,10</Thickness>
+  <Thickness x:Key="InsetDateChipPad">12,4,12,4</Thickness>
+  <Thickness x:Key="InsetChromeHeader">16,16,16,14</Thickness>
+  <Thickness x:Key="InsetComposerChrome">16,12,16,16</Thickness>
+  <Thickness x:Key="InsetTypingStripe">16,16,16,16</Thickness>
+  <Thickness x:Key="InsetTypingBubble">16,10,16,10</Thickness>
+  <Thickness x:Key="InsetVoiceFoot">16,14,24,26</Thickness>
+  <Thickness x:Key="InsetSearchWide">10,12,14,26</Thickness>
+  <Thickness x:Key="InsetSearchNarrow">10,18,14,26</Thickness>
+
+  <x:Double x:Key="GrainOpacity">0.027</x:Double>
+
+  <ImageBrush x:Key="GrainTileBrush"
+              ImageSource="ms-appx:///Assets/grain.png"
+              Stretch="UniformToFill" />
+
+  <SolidColorBrush x:Key="TransparentChromeBrush" Color="#00000000" />
 
 </ResourceDictionary>

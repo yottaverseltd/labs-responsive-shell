@@ -1,148 +1,165 @@
-using System.ComponentModel;
+using LabsResponsiveShell.Controls;
+using LabsResponsiveShell.Data;
 
 namespace LabsResponsiveShell.Pages;
 
 public sealed partial class ChatPage : Page
 {
-    internal ChatViewModel ViewModel { get; } = new();
+    private static string? s_pendingConversationId;
+
+    private readonly List<ConversationRowHost> _rows = [];
+    private MockConversation? _selected;
+    private bool _narrowInThread;
+    private bool _hydrated;
 
     public ChatPage()
     {
         InitializeComponent();
-        Loaded += OnLoaded;
+        Loaded += OnPageLoaded;
         SizeChanged += OnSizeChanged;
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e) => ApplyLayout();
+    public static void RequestOpenConversation(string conversationId) => s_pendingConversationId = conversationId;
+
+    private void OnPageLoaded(object sender, RoutedEventArgs e)
+    {
+        if (!_hydrated)
+        {
+            HydrateLists();
+            _hydrated = true;
+        }
+
+        if (s_pendingConversationId is { } pick)
+        {
+            var found = MockConversations.Find(pick);
+            s_pendingConversationId = null;
+            if (found is not null)
+            {
+                ActivateConversation(found, openNarrowThread: !IsWide());
+            }
+            else
+            {
+                SelectDefaultConversation();
+            }
+        }
+        else if (_selected is null)
+        {
+            SelectDefaultConversation();
+        }
+
+        ApplyLayout();
+    }
 
     private void OnSizeChanged(object sender, SizeChangedEventArgs e) => ApplyLayout();
 
-    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private bool IsWide() => ActualWidth >= 900;
+
+    private void HydrateLists()
     {
-        if (IsNarrow() && ViewModel.Selected is not null)
+        foreach (var conv in MockConversations.GetAll())
         {
-            NarrowList.Visibility = Visibility.Collapsed;
-            NarrowThread.Visibility = Visibility.Visible;
+            var wideRow = new ConversationRowHost { Conversation = conv };
+            wideRow.ConversationActivated += OnRowActivated;
+            WideRowStack.Children.Add(wideRow);
+            _rows.Add(wideRow);
+
+            var narrowRow = new ConversationRowHost { Conversation = conv };
+            narrowRow.ConversationActivated += OnRowActivated;
+            NarrowRowStack.Children.Add(narrowRow);
+            _rows.Add(narrowRow);
         }
     }
 
-    private void OnBackToList(object sender, RoutedEventArgs e)
+    private void SelectDefaultConversation()
     {
-        ViewModel.Selected = null;
-        NarrowThread.Visibility = Visibility.Collapsed;
-        NarrowList.Visibility = Visibility.Visible;
+        var all = MockConversations.GetAll();
+        MockConversation? pick = null;
+        for (var i = 0; i < all.Count; i++)
+        {
+            if (all[i].IsPinned)
+            {
+                pick = all[i];
+                break;
+            }
+        }
+
+        pick ??= all.Count > 0 ? all[0] : null;
+        if (pick is not null)
+        {
+            ActivateConversation(pick, openNarrowThread: false);
+        }
+    }
+
+    private void OnRowActivated(object? sender, MockConversation? conv)
+    {
+        if (conv is null)
+        {
+            return;
+        }
+
+        ActivateConversation(conv, openNarrowThread: !IsWide());
+    }
+
+    private void ActivateConversation(MockConversation conv, bool openNarrowThread)
+    {
+        _selected = conv;
+        foreach (var row in _rows)
+        {
+            row.IsSelected = row.Conversation?.Id == conv.Id;
+        }
+
+        if (IsWide())
+        {
+            _narrowInThread = false;
+            WideThreadChrome.Conversation = conv;
+            return;
+        }
+
+        if (openNarrowThread)
+        {
+            _narrowInThread = true;
+            NarrowListPane.Visibility = Visibility.Collapsed;
+            NarrowThreadPane.Visibility = Visibility.Visible;
+            _ = NarrowThreadFrame.Navigate(
+                typeof(ChatThreadPage),
+                new MobileThreadOpenArgs(conv, CloseNarrowThread));
+        }
+    }
+
+    private void CloseNarrowThread()
+    {
+        _narrowInThread = false;
+        NarrowThreadPane.Visibility = Visibility.Collapsed;
+        NarrowListPane.Visibility = Visibility.Visible;
     }
 
     private void ApplyLayout()
     {
-        if (IsNarrow())
+        if (_selected is null)
         {
-            WideLayout.Visibility = Visibility.Collapsed;
-            if (ViewModel.Selected is null)
-            {
-                NarrowList.Visibility = Visibility.Visible;
-                NarrowThread.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                NarrowList.Visibility = Visibility.Collapsed;
-                NarrowThread.Visibility = Visibility.Visible;
-            }
+            return;
+        }
+
+        if (IsWide())
+        {
+            WideChrome.Visibility = Visibility.Visible;
+            NarrowListPane.Visibility = Visibility.Collapsed;
+            NarrowThreadPane.Visibility = Visibility.Collapsed;
+            WideThreadChrome.Conversation = _selected;
+            _narrowInThread = false;
+            return;
+        }
+
+        WideChrome.Visibility = Visibility.Collapsed;
+        if (_narrowInThread)
+        {
+            NarrowListPane.Visibility = Visibility.Collapsed;
+            NarrowThreadPane.Visibility = Visibility.Visible;
         }
         else
         {
-            WideLayout.Visibility = Visibility.Visible;
-            NarrowList.Visibility = Visibility.Collapsed;
-            NarrowThread.Visibility = Visibility.Collapsed;
+            NarrowListPane.Visibility = Visibility.Visible;
+            NarrowThreadPane.Visibility = Visibility.Collapsed;
         }
     }
-
-    private bool IsNarrow() => ActualWidth < 768;
-}
-
-internal sealed class ChatViewModel : INotifyPropertyChanged
-{
-    public IReadOnlyList<Conversation> Conversations { get; } = ChatMocks.Build();
-
-    private Conversation? _selected;
-    public Conversation? Selected
-    {
-        get => _selected;
-        set
-        {
-            if (ReferenceEquals(_selected, value))
-            {
-                return;
-            }
-
-            _selected = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Selected)));
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-}
-
-public sealed class Conversation
-{
-    public string Name { get; init; } = string.Empty;
-    public string Preview { get; init; } = string.Empty;
-    public string When { get; init; } = string.Empty;
-    public IReadOnlyList<Message> Messages { get; init; } = [];
-}
-
-public sealed class Message
-{
-    public string Body { get; init; } = string.Empty;
-    public string When { get; init; } = string.Empty;
-    public bool IsFromMe { get; init; }
-
-    public HorizontalAlignment Alignment =>
-        IsFromMe ? HorizontalAlignment.Right : HorizontalAlignment.Left;
-
-    public Microsoft.UI.Xaml.Media.Brush BubbleBrush =>
-        Application.Current.Resources[IsFromMe ? "BubbleMineBrush" : "BubbleTheirsBrush"] as Microsoft.UI.Xaml.Media.Brush
-        ?? new Microsoft.UI.Xaml.Media.SolidColorBrush();
-}
-
-internal static class ChatMocks
-{
-    public static IReadOnlyList<Conversation> Build() =>
-    [
-        new Conversation
-        {
-            Name = "Priya Raman",
-            Preview = "ok the schema works. Shipping the migration tonight.",
-            When = "12:41",
-            Messages =
-            [
-                new Message { Body = "Could you eyeball the migration order once?", When = "12:36", IsFromMe = false },
-                new Message { Body = "Yes. The FK on user_id has to wait until the backfill completes.", When = "12:38", IsFromMe = true },
-                new Message { Body = "ok the schema works. Shipping the migration tonight.", When = "12:41", IsFromMe = false },
-            ],
-        },
-        new Conversation
-        {
-            Name = "Design review",
-            Preview = "Aurora tokens are in. Dropped glass behind the rail only.",
-            When = "11:02",
-            Messages =
-            [
-                new Message { Body = "The accent felt too hot at 100%. Pulled back to 70.", When = "10:58", IsFromMe = false },
-                new Message { Body = "Agree. The muted variant reads better on the narrow layout.", When = "11:00", IsFromMe = true },
-                new Message { Body = "Aurora tokens are in. Dropped glass behind the rail only.", When = "11:02", IsFromMe = false },
-            ],
-        },
-        new Conversation
-        {
-            Name = "Kai",
-            Preview = "lunch?",
-            When = "Yesterday",
-            Messages =
-            [
-                new Message { Body = "lunch?", When = "Yesterday", IsFromMe = false },
-                new Message { Body = "1pm, the usual spot.", When = "Yesterday", IsFromMe = true },
-            ],
-        },
-    ];
 }

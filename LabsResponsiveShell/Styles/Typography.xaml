@@ -59,4 +59,9 @@
     <Setter Property="TextWrapping" Value="Wrap" />
   </Style>
 
+  <Style x:Key="ChatBubbleText" TargetType="TextBlock" BasedOn="{StaticResource BodyText}">
+    <Setter Property="FontSize" Value="{StaticResource FontSize14}" />
+    <Setter Property="LineHeight" Value="19" />
+  </Style>
+
 </ResourceDictionary>

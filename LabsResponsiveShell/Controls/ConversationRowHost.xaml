@@ -1,0 +1,106 @@
+<UserControl x:Class="LabsResponsiveShell.Controls.ConversationRowHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:data="using:LabsResponsiveShell.Data"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=data:MockConversation}">
+  <Border x:Name="RowRoot"
+          Background="{StaticResource TransparentChromeBrush}"
+          CornerRadius="{StaticResource Radius12}"
+          MinHeight="64">
+    <Grid Padding="{StaticResource Space12}">
+      <!-- why: inset indicator so swapping selection can slide it without reflowing row text -->
+      <Border x:Name="SelectionAccent"
+              Width="3"
+              HorizontalAlignment="Left"
+              Margin="-8,10,0,10"
+              Background="{ThemeResource AccentBrush}"
+              Opacity="0"
+              CornerRadius="2">
+        <Border.RenderTransform>
+          <TranslateTransform />
+        </Border.RenderTransform>
+      </Border>
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <!-- avatar + presence -->
+        <Grid Width="44" Height="44" Margin="8,0,12,0" VerticalAlignment="Center">
+          <Ellipse x:Name="AvatarDisk"
+                   Width="40"
+                   Height="40"
+                   Fill="{ThemeResource AvatarTone0Brush}" />
+          <TextBlock x:Name="AvatarInitials"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontFamily="{StaticResource PrimaryFontFamily}"
+                     FontSize="{StaticResource FontSize14}"
+                     FontWeight="SemiBold"
+                     Foreground="{ThemeResource TextBrush}" />
+          <Ellipse x:Name="PresenceDot"
+                   Width="10"
+                   Height="10"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,4,4"
+                   Stroke="{ThemeResource SurfaceBrush}"
+                   StrokeThickness="2"
+                   Fill="{ThemeResource PresenceOnlineBrush}"
+                   Visibility="Collapsed" />
+          <Path x:Name="PinGlyph"
+                Data="F1 M 12 2 L 12 8 L 16 8 L 12 22 L 8 8 L 12 8 Z"
+                Fill="{ThemeResource AccentBrush}"
+                Width="10"
+                Height="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="-2,-2,0,0"
+                Visibility="Collapsed" />
+        </Grid>
+        <!-- title + preview -->
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto">
+          <TextBlock x:Name="TitleBlock"
+                     Grid.Row="0"
+                     Style="{StaticResource TitleText}"
+                     FontSize="{StaticResource FontSize15}"
+                     LineHeight="20"
+                     TextTrimming="CharacterEllipsis"
+                     Padding="0" />
+          <TextBlock x:Name="PreviewBlock"
+                     Grid.Row="1"
+                     Margin="0,2,0,0"
+                     Style="{StaticResource MutedText}"
+                     FontSize="{StaticResource FontSize14}"
+                     LineHeight="19"
+                     TextTrimming="CharacterEllipsis"
+                     TextWrapping="NoWrap" />
+        </Grid>
+        <!-- timestamp + unread -->
+        <Grid Grid.Column="2"
+              RowDefinitions="Auto,Auto"
+              HorizontalAlignment="Right"
+              MinWidth="48"
+              Margin="8,0,0,0">
+          <TextBlock x:Name="WhenBlock"
+                     Grid.Row="0"
+                     Style="{StaticResource CaptionText}"
+                     HorizontalAlignment="Right" />
+          <Border x:Name="UnreadPill"
+                  Grid.Row="1"
+                  Margin="0,4,0,0"
+                  Padding="6,2"
+                  CornerRadius="10"
+                  HorizontalAlignment="Right"
+                  Background="{ThemeResource UnreadBadgeBackgroundBrush}"
+                  Visibility="Collapsed">
+            <TextBlock x:Name="UnreadCountText"
+                       FontFamily="{StaticResource PrimaryFontFamily}"
+                       FontSize="{StaticResource FontSize11}"
+                       FontWeight="SemiBold"
+                       Foreground="{ThemeResource UnreadBadgeForegroundBrush}" />
+          </Border>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>

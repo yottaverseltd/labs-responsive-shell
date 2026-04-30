@@ -6,6 +6,10 @@
   <Duration x:Key="MotionFast">0:0:0.120</Duration>
   <Duration x:Key="MotionDefault">0:0:0.200</Duration>
   <Duration x:Key="MotionSlow">0:0:0.320</Duration>
+  <Duration x:Key="MotionTypingLoop">0:0:0.600</Duration>
+  <Duration x:Key="MotionSkeletonFade">0:0:0.200</Duration>
+  <Duration x:Key="MotionAvatarHalo">0:0:0.220</Duration>
+  <Duration x:Key="MotionNavIndicatorSlide">0:0:0.120</Duration>
 
   <CubicEase x:Key="EaseStandard" EasingMode="EaseInOut" />
   <CubicEase x:Key="EaseOut" EasingMode="EaseOut" />

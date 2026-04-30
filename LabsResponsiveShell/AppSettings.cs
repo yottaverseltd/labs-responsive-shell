@@ -4,6 +4,20 @@ using LabsResponsiveShell.Motion;
 
 namespace LabsResponsiveShell;
 
+public enum AuroraSoundPreset
+{
+    Subtle,
+    Full,
+    Off,
+}
+
+public enum LastSeenAudience
+{
+    Everyone,
+    Contacts,
+    Nobody,
+}
+
 public sealed class AppSettings : INotifyPropertyChanged
 {
     public static AppSettings Current { get; } = new();
@@ -11,6 +25,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     private ElementTheme _theme = ElementTheme.Dark;
     private bool _rightToLeft;
     private bool _reducedMotion;
+    private AuroraSoundPreset _sound = AuroraSoundPreset.Subtle;
+    private LastSeenAudience _lastSeen = LastSeenAudience.Contacts;
+    private bool _readReceipts = true;
 
     public ElementTheme Theme
     {
@@ -56,6 +73,24 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public FlowDirection FlowDirection =>
         _rightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+    public AuroraSoundPreset SoundPreset
+    {
+        get => _sound;
+        set => Set(ref _sound, value);
+    }
+
+    public LastSeenAudience LastSeenAudience
+    {
+        get => _lastSeen;
+        set => Set(ref _lastSeen, value);
+    }
+
+    public bool ReadReceiptsEnabled
+    {
+        get => _readReceipts;
+        set => Set(ref _readReceipts, value);
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

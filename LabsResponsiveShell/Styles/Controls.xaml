@@ -26,10 +26,6 @@
       <SolidColorBrush x:Key="HyperlinkButtonForegroundPointerOver" Color="{StaticResource AccentStrongColor}" />
       <SolidColorBrush x:Key="HyperlinkButtonForegroundPressed" Color="{StaticResource AccentStrongColor}" />
 
-      <!-- neutral "my-bubble" surface; sibling of SurfaceElevated, not pulled from accent -->
-      <SolidColorBrush x:Key="BubbleMineBrush" Color="#23303F" />
-      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
-
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Light">
@@ -48,9 +44,6 @@
       <SolidColorBrush x:Key="HyperlinkButtonForeground" Color="{StaticResource AccentColor}" />
       <SolidColorBrush x:Key="HyperlinkButtonForegroundPointerOver" Color="{StaticResource AccentStrongColor}" />
       <SolidColorBrush x:Key="HyperlinkButtonForegroundPressed" Color="{StaticResource AccentStrongColor}" />
-
-      <SolidColorBrush x:Key="BubbleMineBrush" Color="#E8E1CE" />
-      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
 
     </ResourceDictionary>
 
