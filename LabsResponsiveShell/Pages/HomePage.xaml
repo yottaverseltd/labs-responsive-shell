@@ -1,179 +1,177 @@
-<Page
-  x:Class="LabsResponsiveShell.Pages.HomePage"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Background="Transparent"
-  Foreground="{ThemeResource TextBrush}">
+<Page x:Class="LabsResponsiveShell.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent"
+      Foreground="{ThemeResource TextBrush}">
 
-  <ScrollViewer>
-    <Grid Padding="{StaticResource Space32}"
-          MaxWidth="{StaticResource ShellContentMaxWidth}"
-          HorizontalAlignment="Center"
-          RowDefinitions="Auto">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid Padding="24,28,24,32"
+          MaxWidth="1080"
+          HorizontalAlignment="Left">
 
-      <Grid x:Name="ContentLayout"
-            Grid.Row="0"
-            ColumnDefinitions="*,48,*"
-            RowDefinitions="Auto,*">
+      <!-- scoped glow: fades across the top band, only on Home -->
+      <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
+                 Height="320"
+                 VerticalAlignment="Top"
+                 IsHitTestVisible="False" />
 
-        <StackPanel x:Name="LeftColumn"
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    MaxWidth="{StaticResource ReadingColumnMaxWidth}"
-                    HorizontalAlignment="Left"
-                    Spacing="{StaticResource Space32}">
+      <StackPanel Spacing="32">
 
-          <StackPanel Spacing="{StaticResource Space16}">
-            <TextBlock Style="{StaticResource EyebrowText}"
-                       Text="LABS / RESPONSIVE SHELL" />
+        <!-- welcome card -->
+        <Border Background="{ThemeResource SurfaceBrush}"
+                BorderBrush="{ThemeResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource Radius20}"
+                Padding="28,26,28,26">
+          <StackPanel Spacing="10">
+            <TextBlock Style="{StaticResource EyebrowText}" Text="TODAY" />
             <TextBlock Style="{StaticResource HeroText}"
-                       Text="Proof, not pitch." />
+                       Text="Hello"
+                       FontSize="{StaticResource FontSize56}"
+                       LineHeight="60" />
             <TextBlock Style="{StaticResource MutedText}"
-                       MaxWidth="{StaticResource ReadingColumnMaxWidth}"
-                       Text="A small Uno shell. Responsive on day one, token-driven, reduced-motion aware. Toggle any setting and watch the app respond." />
+                       Text="You have 12 new messages today." />
           </StackPanel>
+        </Border>
 
+        <!-- recent conversations -->
+        <StackPanel Spacing="14">
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBlock Grid.Column="0" Style="{StaticResource EyebrowText}" Text="RECENT CONVERSATIONS" />
+            <HyperlinkButton Grid.Column="1"
+                             Content="View all"
+                             Padding="0"
+                             Click="OnViewAllClick" />
+          </Grid>
           <Border Background="{ThemeResource SurfaceBrush}"
                   BorderBrush="{ThemeResource BorderBrush}"
                   BorderThickness="1"
                   CornerRadius="{StaticResource Radius16}"
-                  Padding="{StaticResource Space24}">
-            <StackPanel Spacing="{StaticResource Space16}">
-              <TextBlock Style="{StaticResource TitleText}" Text="Try it" />
-              <TextBlock Style="{StaticResource MutedText}"
-                         Text="Three switches, one shell. Nothing else wired." />
-              <StackPanel Spacing="{StaticResource Space12}">
-                <ToggleSwitch Header="Dark theme"
-                              IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
-                <ToggleSwitch Header="Right to left"
-                              IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
-                <ToggleSwitch Header="Reduced motion"
-                              IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+                  Padding="8">
+            <StackPanel x:Name="RecentStack" Spacing="2" />
+          </Border>
+        </StackPanel>
+
+        <!-- quick actions -->
+        <StackPanel Spacing="14">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="QUICK ACTIONS" />
+          <Grid ColumnSpacing="16" ColumnDefinitions="*,*,*">
+            <Button Grid.Column="0"
+                    Tag="New chat"
+                    Click="OnQuickActionClick"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Background="{ThemeResource SurfaceBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource Radius16}"
+                    Padding="18,16,18,16">
+              <StackPanel Spacing="12">
+                <Grid Width="40" Height="40">
+                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                  <PathIcon Data="{StaticResource IconPlusChatData}"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource AccentBrush}" />
+                </Grid>
+                <TextBlock Text="New chat"
+                           FontFamily="{StaticResource PrimaryFontFamily}"
+                           FontSize="{StaticResource FontSize15}"
+                           FontWeight="SemiBold"
+                           Foreground="{ThemeResource TextBrush}" />
+                <TextBlock Style="{StaticResource CaptionText}" Text="Start a direct message" />
               </StackPanel>
-            </StackPanel>
-          </Border>
+            </Button>
+            <Button Grid.Column="1"
+                    Tag="New group"
+                    Click="OnQuickActionClick"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Background="{ThemeResource SurfaceBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource Radius16}"
+                    Padding="18,16,18,16">
+              <StackPanel Spacing="12">
+                <Grid Width="40" Height="40">
+                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                  <PathIcon Data="{StaticResource IconUsersData}"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource AccentBrush}" />
+                </Grid>
+                <TextBlock Text="New group"
+                           FontFamily="{StaticResource PrimaryFontFamily}"
+                           FontSize="{StaticResource FontSize15}"
+                           FontWeight="SemiBold"
+                           Foreground="{ThemeResource TextBrush}" />
+                <TextBlock Style="{StaticResource CaptionText}" Text="Gather a team thread" />
+              </StackPanel>
+            </Button>
+            <Button Grid.Column="2"
+                    Tag="Browse channels"
+                    Click="OnQuickActionClick"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Background="{ThemeResource SurfaceBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource Radius16}"
+                    Padding="18,16,18,16">
+              <StackPanel Spacing="12">
+                <Grid Width="40" Height="40">
+                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                  <PathIcon Data="{StaticResource IconRadioData}"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource AccentBrush}" />
+                </Grid>
+                <TextBlock Text="Browse channels"
+                           FontFamily="{StaticResource PrimaryFontFamily}"
+                           FontSize="{StaticResource FontSize15}"
+                           FontWeight="SemiBold"
+                           Foreground="{ThemeResource TextBrush}" />
+                <TextBlock Style="{StaticResource CaptionText}" Text="Find public rooms" />
+              </StackPanel>
+            </Button>
+          </Grid>
+        </StackPanel>
 
-          <StackPanel Spacing="{StaticResource Space8}">
-            <TextBlock Style="{StaticResource EyebrowText}"
-                       Text="WHAT YOU ARE LOOKING AT" />
-            <TextBlock Style="{StaticResource BodyText}"
-                       Text="The nav rail collapses into a bottom tab bar under 768 px. Colors resolve through a token layer. Durations clamp to zero under prefers-reduced-motion." />
+        <!-- activity chips -->
+        <StackPanel Spacing="14">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="ACTIVITY" />
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Border Background="{ThemeResource SurfaceElevatedBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="999"
+                    Padding="14,8,14,8">
+              <TextBlock Style="{StaticResource EyebrowText}" Text="12 NEW MESSAGES TODAY" />
+            </Border>
+            <Border Background="{ThemeResource SurfaceElevatedBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="999"
+                    Padding="14,8,14,8">
+              <TextBlock Style="{StaticResource EyebrowText}" Text="3 UNREAD THREADS" />
+            </Border>
+            <Border Background="{ThemeResource SurfaceElevatedBrush}"
+                    BorderBrush="{ThemeResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="999"
+                    Padding="14,8,14,8">
+              <TextBlock Style="{StaticResource EyebrowText}" Text="2 PENDING INVITES" />
+            </Border>
           </StackPanel>
-
         </StackPanel>
 
-        <StackPanel x:Name="RightColumn"
-                    Grid.Column="2"
-                    Grid.Row="0"
-                    MaxWidth="520"
-                    HorizontalAlignment="Left"
-                    Spacing="{StaticResource Space16}"
-                    Visibility="Collapsed">
-
-          <TextBlock Style="{StaticResource EyebrowText}"
-                     Text="LIVE PREVIEW" />
-          <TextBlock Style="{StaticResource TitleText}"
-                     Text="A bubble reacts." />
-          <TextBlock Style="{StaticResource MutedText}"
-                     Text="The surface below re-renders with the tokens. Flip a toggle, watch the result." />
-
-          <Border x:Name="PreviewHost"
-                  Background="{ThemeResource SurfaceBrush}"
-                  BorderBrush="{ThemeResource BorderBrush}"
-                  BorderThickness="1"
-                  CornerRadius="{StaticResource Radius16}"
-                  Padding="{StaticResource Space24}">
-            <StackPanel x:Name="PreviewStack"
-                        Spacing="{StaticResource Space12}">
-
-              <Border HorizontalAlignment="Left"
-                      Background="{ThemeResource SurfaceElevatedBrush}"
-                      CornerRadius="{StaticResource Radius12}"
-                      Padding="12,8"
-                      MaxWidth="360">
-                <StackPanel Spacing="2">
-                  <TextBlock Text="Sara"
-                             FontFamily="{StaticResource PrimaryFontFamily}"
-                             FontSize="{StaticResource FontSize12}"
-                             FontWeight="SemiBold"
-                             Foreground="{ThemeResource TextMutedBrush}" />
-                  <TextBlock Text="Dropped the new tokens in. Everything re-themes when you flip dark."
-                             FontFamily="{StaticResource PrimaryFontFamily}"
-                             FontSize="{StaticResource FontSize14}"
-                             LineHeight="20"
-                             Foreground="{ThemeResource TextBrush}"
-                             TextWrapping="Wrap" />
-                </StackPanel>
-              </Border>
-
-              <Border HorizontalAlignment="Right"
-                      Background="{ThemeResource BubbleMineBrush}"
-                      CornerRadius="{StaticResource Radius12}"
-                      Padding="12,8"
-                      MaxWidth="360">
-                <TextBlock Text="Nice. RTL flips the stack, reduced motion cuts the re-mount fade."
-                           FontFamily="{StaticResource PrimaryFontFamily}"
-                           FontSize="{StaticResource FontSize14}"
-                           LineHeight="20"
-                           Foreground="{ThemeResource TextBrush}"
-                           TextWrapping="Wrap" />
-              </Border>
-
-              <Border HorizontalAlignment="Left"
-                      Background="{ThemeResource SurfaceElevatedBrush}"
-                      CornerRadius="{StaticResource Radius12}"
-                      Padding="12,8"
-                      MaxWidth="360">
-                <TextBlock Text="Hit re-mount to see the content fade back in."
-                           FontFamily="{StaticResource PrimaryFontFamily}"
-                           FontSize="{StaticResource FontSize14}"
-                           LineHeight="20"
-                           Foreground="{ThemeResource TextBrush}"
-                           TextWrapping="Wrap" />
-              </Border>
-
-            </StackPanel>
-          </Border>
-
-          <Button x:Name="RemountButton"
-                  Click="OnRemount"
-                  Content="Re-mount preview"
-                  HorizontalAlignment="Left"
-                  Background="Transparent"
-                  BorderBrush="{ThemeResource BorderBrush}"
-                  BorderThickness="1"
-                  Foreground="{ThemeResource TextBrush}"
-                  FontFamily="{StaticResource PrimaryFontFamily}"
-                  FontSize="{StaticResource FontSize14}"
-                  Padding="14,8"
-                  CornerRadius="{StaticResource Radius8}" />
-
-        </StackPanel>
-
-        <VisualStateManager.VisualStateGroups>
-          <VisualStateGroup x:Name="Breakpoint">
-            <VisualState x:Name="NarrowHome">
-              <VisualState.StateTriggers>
-                <AdaptiveTrigger MinWindowWidth="0" />
-              </VisualState.StateTriggers>
-              <VisualState.Setters>
-                <Setter Target="LeftColumn.MaxWidth" Value="{StaticResource ReadingColumnMaxWidth}" />
-                <Setter Target="LeftColumn.(Grid.ColumnSpan)" Value="3" />
-                <Setter Target="RightColumn.Visibility" Value="Collapsed" />
-              </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="WideHome">
-              <VisualState.StateTriggers>
-                <AdaptiveTrigger MinWindowWidth="900" />
-              </VisualState.StateTriggers>
-              <VisualState.Setters>
-                <Setter Target="RightColumn.Visibility" Value="Visible" />
-              </VisualState.Setters>
-            </VisualState>
-          </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
-      </Grid>
+      </StackPanel>
     </Grid>
   </ScrollViewer>
 
