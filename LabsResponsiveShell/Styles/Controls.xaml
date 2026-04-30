@@ -1,0 +1,59 @@
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- why: ToggleSwitch and HyperlinkButton default to the system accent; pin them to our own accent token -->
+
+  <ResourceDictionary.ThemeDictionaries>
+
+    <ResourceDictionary x:Key="Default">
+
+      <!-- ToggleSwitch on-state track -->
+      <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOn" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOnPointerOver" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOnPressed" Color="{StaticResource AccentStrongColor}" />
+
+      <!-- ToggleSwitch on-state thumb (this is the visible accent kiss) -->
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="#FFFFFFFF" />
+
+      <!-- HyperlinkButton: rest + hover both read accent, underline appears on pointer-over via default template -->
+      <SolidColorBrush x:Key="HyperlinkButtonForeground" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="HyperlinkButtonForegroundPointerOver" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="HyperlinkButtonForegroundPressed" Color="{StaticResource AccentStrongColor}" />
+
+      <!-- neutral "my-bubble" surface; sibling of SurfaceElevated, not pulled from accent -->
+      <SolidColorBrush x:Key="BubbleMineBrush" Color="#23303F" />
+      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
+
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="Light">
+
+      <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOn" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOnPointerOver" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="ToggleSwitchStrokeOnPressed" Color="{StaticResource AccentStrongColor}" />
+
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="#FFFFFFFF" />
+
+      <SolidColorBrush x:Key="HyperlinkButtonForeground" Color="{StaticResource AccentColor}" />
+      <SolidColorBrush x:Key="HyperlinkButtonForegroundPointerOver" Color="{StaticResource AccentStrongColor}" />
+      <SolidColorBrush x:Key="HyperlinkButtonForegroundPressed" Color="{StaticResource AccentStrongColor}" />
+
+      <SolidColorBrush x:Key="BubbleMineBrush" Color="#E8E1CE" />
+      <SolidColorBrush x:Key="BubbleTheirsBrush" Color="{StaticResource SurfaceElevatedColor}" />
+
+    </ResourceDictionary>
+
+  </ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>

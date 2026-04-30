@@ -47,7 +47,7 @@
               ColumnSpacing="{StaticResource Space8}"
               VerticalAlignment="Center">
           <Grid Grid.Column="0" Width="32" Height="32">
-            <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+            <Ellipse Fill="{ThemeResource SurfaceElevatedBrush}" />
             <TextBlock Text="Q"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -108,7 +108,7 @@
         </Flyout>
       </Button.Flyout>
       <Grid Width="32" Height="32">
-        <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+        <Ellipse Fill="{ThemeResource SurfaceElevatedBrush}" />
         <TextBlock Text="Q"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

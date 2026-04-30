@@ -12,6 +12,7 @@
         <ResourceDictionary Source="ms-appx:///Styles/Motion.xaml" />
         <ResourceDictionary Source="ms-appx:///Styles/Aurora.xaml" />
         <ResourceDictionary Source="ms-appx:///Styles/Icons.xaml" />
+        <ResourceDictionary Source="ms-appx:///Styles/Controls.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

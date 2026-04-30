@@ -101,7 +101,7 @@ public sealed class Message
         IsFromMe ? HorizontalAlignment.Right : HorizontalAlignment.Left;
 
     public Microsoft.UI.Xaml.Media.Brush BubbleBrush =>
-        Application.Current.Resources[IsFromMe ? "AccentMutedBrush" : "SurfaceElevatedBrush"] as Microsoft.UI.Xaml.Media.Brush
+        Application.Current.Resources[IsFromMe ? "BubbleMineBrush" : "BubbleTheirsBrush"] as Microsoft.UI.Xaml.Media.Brush
         ?? new Microsoft.UI.Xaml.Media.SolidColorBrush();
 }
 

@@ -96,7 +96,7 @@
                              FontFamily="{StaticResource PrimaryFontFamily}"
                              FontSize="{StaticResource FontSize12}"
                              FontWeight="SemiBold"
-                             Foreground="{ThemeResource AccentBrush}" />
+                             Foreground="{ThemeResource TextMutedBrush}" />
                   <TextBlock Text="Dropped the new tokens in. Everything re-themes when you flip dark."
                              FontFamily="{StaticResource PrimaryFontFamily}"
                              FontSize="{StaticResource FontSize14}"
@@ -107,7 +107,7 @@
               </Border>
 
               <Border HorizontalAlignment="Right"
-                      Background="{ThemeResource AccentMutedBrush}"
+                      Background="{ThemeResource BubbleMineBrush}"
                       CornerRadius="{StaticResource Radius12}"
                       Padding="12,8"
                       MaxWidth="360">
