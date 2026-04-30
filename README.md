@@ -2,6 +2,8 @@
 
 A responsive Uno Platform shell. Clone, run, ship.
 
+Live: https://yottaverseltd.github.io/labs-responsive-shell/
+
 ## What it is
 
 A small single-project Uno Platform sample targeting WebAssembly and Skia Desktop. The shell adapts at 768 px between a vertical nav rail and a bottom tab bar. Three toggles wire a token-driven theme, a flow-direction flip, and an OS-aware reduced-motion mode. No network, no telemetry, no auth. This ships as a starting point, not a tutorial.
