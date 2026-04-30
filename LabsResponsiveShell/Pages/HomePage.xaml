@@ -7,50 +7,173 @@
 
   <ScrollViewer>
     <Grid Padding="{StaticResource Space32}"
-          RowDefinitions="Auto,Auto,Auto"
-          RowSpacing="{StaticResource Space32}"
-          MaxWidth="{StaticResource ReadingColumnMaxWidth}"
-          HorizontalAlignment="Center">
+          MaxWidth="{StaticResource ShellContentMaxWidth}"
+          HorizontalAlignment="Center"
+          RowDefinitions="Auto">
 
-      <StackPanel Grid.Row="0" Spacing="{StaticResource Space16}">
-        <TextBlock Style="{StaticResource EyebrowText}"
-                   Text="LABS / RESPONSIVE SHELL" />
-        <TextBlock Style="{StaticResource HeroText}"
-                   Text="Proof, not pitch." />
-        <TextBlock Style="{StaticResource MutedText}"
-                   MaxWidth="{StaticResource ReadingColumnMaxWidth}"
-                   Text="A small Uno shell. Responsive on day one, token-driven, reduced-motion aware. Toggle any setting and watch the app respond." />
-      </StackPanel>
+      <Grid x:Name="ContentLayout"
+            Grid.Row="0"
+            ColumnDefinitions="*,48,*"
+            RowDefinitions="Auto,*">
 
-      <Border Grid.Row="1"
-              Background="{ThemeResource SurfaceBrush}"
-              BorderBrush="{ThemeResource BorderBrush}"
-              BorderThickness="1"
-              CornerRadius="{StaticResource Radius16}"
-              Padding="{StaticResource Space24}">
-        <StackPanel Spacing="{StaticResource Space16}">
-          <TextBlock Style="{StaticResource TitleText}"
-                     Text="Try it" />
-          <TextBlock Style="{StaticResource MutedText}"
-                     Text="Three switches, one shell. Nothing else wired." />
-          <StackPanel Spacing="{StaticResource Space12}">
-            <ToggleSwitch Header="Dark theme"
-                          IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
-            <ToggleSwitch Header="Right to left"
-                          IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
-            <ToggleSwitch Header="Reduced motion"
-                          IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+        <StackPanel x:Name="LeftColumn"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    MaxWidth="{StaticResource ReadingColumnMaxWidth}"
+                    HorizontalAlignment="Left"
+                    Spacing="{StaticResource Space32}">
+
+          <StackPanel Spacing="{StaticResource Space16}">
+            <TextBlock Style="{StaticResource EyebrowText}"
+                       Text="LABS / RESPONSIVE SHELL" />
+            <TextBlock Style="{StaticResource HeroText}"
+                       Text="Proof, not pitch." />
+            <TextBlock Style="{StaticResource MutedText}"
+                       MaxWidth="{StaticResource ReadingColumnMaxWidth}"
+                       Text="A small Uno shell. Responsive on day one, token-driven, reduced-motion aware. Toggle any setting and watch the app respond." />
           </StackPanel>
+
+          <Border Background="{ThemeResource SurfaceBrush}"
+                  BorderBrush="{ThemeResource BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource Radius16}"
+                  Padding="{StaticResource Space24}">
+            <StackPanel Spacing="{StaticResource Space16}">
+              <TextBlock Style="{StaticResource TitleText}" Text="Try it" />
+              <TextBlock Style="{StaticResource MutedText}"
+                         Text="Three switches, one shell. Nothing else wired." />
+              <StackPanel Spacing="{StaticResource Space12}">
+                <ToggleSwitch Header="Dark theme"
+                              IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
+                <ToggleSwitch Header="Right to left"
+                              IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
+                <ToggleSwitch Header="Reduced motion"
+                              IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <StackPanel Spacing="{StaticResource Space8}">
+            <TextBlock Style="{StaticResource EyebrowText}"
+                       Text="WHAT YOU ARE LOOKING AT" />
+            <TextBlock Style="{StaticResource BodyText}"
+                       Text="The nav rail collapses into a bottom tab bar under 768 px. Colors resolve through a token layer. Durations clamp to zero under prefers-reduced-motion." />
+          </StackPanel>
+
         </StackPanel>
-      </Border>
 
-      <StackPanel Grid.Row="2" Spacing="{StaticResource Space8}">
-        <TextBlock Style="{StaticResource EyebrowText}"
-                   Text="WHAT YOU ARE LOOKING AT" />
-        <TextBlock Style="{StaticResource BodyText}"
-                   Text="The nav rail collapses into a bottom tab bar under 768 px. Colors resolve through a token layer. Durations clamp to zero under prefers-reduced-motion." />
-      </StackPanel>
+        <StackPanel x:Name="RightColumn"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    MaxWidth="520"
+                    HorizontalAlignment="Left"
+                    Spacing="{StaticResource Space16}"
+                    Visibility="Collapsed">
 
+          <TextBlock Style="{StaticResource EyebrowText}"
+                     Text="LIVE PREVIEW" />
+          <TextBlock Style="{StaticResource TitleText}"
+                     Text="A bubble reacts." />
+          <TextBlock Style="{StaticResource MutedText}"
+                     Text="The surface below re-renders with the tokens. Flip a toggle, watch the result." />
+
+          <Border x:Name="PreviewHost"
+                  Background="{ThemeResource SurfaceBrush}"
+                  BorderBrush="{ThemeResource BorderBrush}"
+                  BorderThickness="1"
+                  CornerRadius="{StaticResource Radius16}"
+                  Padding="{StaticResource Space24}">
+            <StackPanel x:Name="PreviewStack"
+                        Spacing="{StaticResource Space12}">
+
+              <Border HorizontalAlignment="Left"
+                      Background="{ThemeResource SurfaceElevatedBrush}"
+                      CornerRadius="{StaticResource Radius12}"
+                      Padding="12,8"
+                      MaxWidth="360">
+                <StackPanel Spacing="2">
+                  <TextBlock Text="Sara"
+                             FontFamily="{StaticResource PrimaryFontFamily}"
+                             FontSize="{StaticResource FontSize12}"
+                             FontWeight="SemiBold"
+                             Foreground="{ThemeResource AccentBrush}" />
+                  <TextBlock Text="Dropped the new tokens in. Everything re-themes when you flip dark."
+                             FontFamily="{StaticResource PrimaryFontFamily}"
+                             FontSize="{StaticResource FontSize14}"
+                             LineHeight="20"
+                             Foreground="{ThemeResource TextBrush}"
+                             TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+
+              <Border HorizontalAlignment="Right"
+                      Background="{ThemeResource AccentMutedBrush}"
+                      CornerRadius="{StaticResource Radius12}"
+                      Padding="12,8"
+                      MaxWidth="360">
+                <TextBlock Text="Nice. RTL flips the stack, reduced motion cuts the re-mount fade."
+                           FontFamily="{StaticResource PrimaryFontFamily}"
+                           FontSize="{StaticResource FontSize14}"
+                           LineHeight="20"
+                           Foreground="{ThemeResource TextBrush}"
+                           TextWrapping="Wrap" />
+              </Border>
+
+              <Border HorizontalAlignment="Left"
+                      Background="{ThemeResource SurfaceElevatedBrush}"
+                      CornerRadius="{StaticResource Radius12}"
+                      Padding="12,8"
+                      MaxWidth="360">
+                <TextBlock Text="Hit re-mount to see the content fade back in."
+                           FontFamily="{StaticResource PrimaryFontFamily}"
+                           FontSize="{StaticResource FontSize14}"
+                           LineHeight="20"
+                           Foreground="{ThemeResource TextBrush}"
+                           TextWrapping="Wrap" />
+              </Border>
+
+            </StackPanel>
+          </Border>
+
+          <Button x:Name="RemountButton"
+                  Click="OnRemount"
+                  Content="Re-mount preview"
+                  HorizontalAlignment="Left"
+                  Background="Transparent"
+                  BorderBrush="{ThemeResource BorderBrush}"
+                  BorderThickness="1"
+                  Foreground="{ThemeResource TextBrush}"
+                  FontFamily="{StaticResource PrimaryFontFamily}"
+                  FontSize="{StaticResource FontSize14}"
+                  Padding="14,8"
+                  CornerRadius="{StaticResource Radius8}" />
+
+        </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup x:Name="Breakpoint">
+            <VisualState x:Name="NarrowHome">
+              <VisualState.StateTriggers>
+                <AdaptiveTrigger MinWindowWidth="0" />
+              </VisualState.StateTriggers>
+              <VisualState.Setters>
+                <Setter Target="LeftColumn.MaxWidth" Value="{StaticResource ReadingColumnMaxWidth}" />
+                <Setter Target="LeftColumn.(Grid.ColumnSpan)" Value="3" />
+                <Setter Target="RightColumn.Visibility" Value="Collapsed" />
+              </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="WideHome">
+              <VisualState.StateTriggers>
+                <AdaptiveTrigger MinWindowWidth="900" />
+              </VisualState.StateTriggers>
+              <VisualState.Setters>
+                <Setter Target="RightColumn.Visibility" Value="Visible" />
+              </VisualState.Setters>
+            </VisualState>
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+      </Grid>
     </Grid>
   </ScrollViewer>
 
