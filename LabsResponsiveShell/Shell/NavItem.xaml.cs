@@ -1,3 +1,4 @@
+using LabsResponsiveShell.Motion;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Markup;
 using Geometry = Microsoft.UI.Xaml.Media.Geometry;
@@ -73,7 +74,9 @@ public sealed partial class NavItem : UserControl
     {
         if (d is NavItem item)
         {
-            VisualStateManager.GoToState(item, (bool)e.NewValue ? "Selected" : "Unselected", useTransitions: true);
+            var selected = (bool)e.NewValue;
+            VisualStateManager.GoToState(item, selected ? "Selected" : "Unselected", useTransitions: true);
+            MotionPrimitives.PlayIndicatorSlide(item.SelectedIndicator, selected);
         }
     }
 

@@ -64,7 +64,6 @@
           <VisualState x:Name="Unselected" />
           <VisualState x:Name="Selected">
             <VisualState.Setters>
-              <Setter Target="SelectedIndicator.Opacity" Value="1" />
               <Setter Target="Icon.Foreground" Value="{ThemeResource AccentBrush}" />
               <Setter Target="LabelText.FontWeight" Value="SemiBold" />
             </VisualState.Setters>

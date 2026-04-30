@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using LabsResponsiveShell.Motion;
 using LabsResponsiveShell.Pages;
 
 namespace LabsResponsiveShell.Shell;
@@ -12,6 +13,8 @@ public sealed partial class AppShell : Page
         AppSettings.Current.PropertyChanged += OnSettingsChanged;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
+        WideContentFrame.Navigated += OnFrameNavigated;
+        NarrowContentFrame.Navigated += OnFrameNavigated;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -22,6 +25,16 @@ public sealed partial class AppShell : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         AppSettings.Current.PropertyChanged -= OnSettingsChanged;
+        WideContentFrame.Navigated -= OnFrameNavigated;
+        NarrowContentFrame.Navigated -= OnFrameNavigated;
+    }
+
+    private void OnFrameNavigated(object sender, NavigationEventArgs e)
+    {
+        if (e.Content is FrameworkElement page)
+        {
+            MotionPrimitives.PlayMount(page);
+        }
     }
 
     private Frame ActiveFrame => WideLayout.Visibility == Visibility.Visible
