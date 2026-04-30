@@ -7,7 +7,7 @@
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid Padding="24,28,24,32"
           MaxWidth="1080"
-          HorizontalAlignment="Left">
+          HorizontalAlignment="Center">
 
       <!-- scoped glow: fades across the top band, only on Home -->
       <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
@@ -67,15 +67,14 @@
                     CornerRadius="{StaticResource Radius16}"
                     Padding="18,16,18,16">
               <StackPanel Spacing="12">
-                <Grid Width="40" Height="40">
-                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                <Border Width="40" Height="40" CornerRadius="{StaticResource Radius12}" Background="{ThemeResource AccentMutedBrush}">
                   <PathIcon Data="{StaticResource IconPlusChatData}"
                             Width="20"
                             Height="20"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource AccentBrush}" />
-                </Grid>
+                </Border>
                 <TextBlock Text="New chat"
                            FontFamily="{StaticResource PrimaryFontFamily}"
                            FontSize="{StaticResource FontSize15}"
@@ -95,15 +94,14 @@
                     CornerRadius="{StaticResource Radius16}"
                     Padding="18,16,18,16">
               <StackPanel Spacing="12">
-                <Grid Width="40" Height="40">
-                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                <Border Width="40" Height="40" CornerRadius="{StaticResource Radius12}" Background="{ThemeResource AccentMutedBrush}">
                   <PathIcon Data="{StaticResource IconUsersData}"
                             Width="20"
                             Height="20"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource AccentBrush}" />
-                </Grid>
+                </Border>
                 <TextBlock Text="New group"
                            FontFamily="{StaticResource PrimaryFontFamily}"
                            FontSize="{StaticResource FontSize15}"
@@ -123,15 +121,14 @@
                     CornerRadius="{StaticResource Radius16}"
                     Padding="18,16,18,16">
               <StackPanel Spacing="12">
-                <Grid Width="40" Height="40">
-                  <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+                <Border Width="40" Height="40" CornerRadius="{StaticResource Radius12}" Background="{ThemeResource AccentMutedBrush}">
                   <PathIcon Data="{StaticResource IconRadioData}"
                             Width="20"
                             Height="20"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource AccentBrush}" />
-                </Grid>
+                </Border>
                 <TextBlock Text="Browse channels"
                            FontFamily="{StaticResource PrimaryFontFamily}"
                            FontSize="{StaticResource FontSize15}"
@@ -150,21 +147,21 @@
             <Border Background="{ThemeResource SurfaceElevatedBrush}"
                     BorderBrush="{ThemeResource BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="999"
+                    CornerRadius="{StaticResource Radius8}"
                     Padding="14,8,14,8">
               <TextBlock Style="{StaticResource EyebrowText}" Text="12 NEW MESSAGES TODAY" />
             </Border>
             <Border Background="{ThemeResource SurfaceElevatedBrush}"
                     BorderBrush="{ThemeResource BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="999"
+                    CornerRadius="{StaticResource Radius8}"
                     Padding="14,8,14,8">
               <TextBlock Style="{StaticResource EyebrowText}" Text="3 UNREAD THREADS" />
             </Border>
             <Border Background="{ThemeResource SurfaceElevatedBrush}"
                     BorderBrush="{ThemeResource BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="999"
+                    CornerRadius="{StaticResource Radius8}"
                     Padding="14,8,14,8">
               <TextBlock Style="{StaticResource EyebrowText}" Text="2 PENDING INVITES" />
             </Border>
