@@ -69,5 +69,9 @@ public sealed partial class AppShell : Page
         WideHomeItem.IsSelected = pageType == typeof(HomePage);
         WideChatItem.IsSelected = pageType == typeof(ChatPage);
         WideSettingsItem.IsSelected = pageType == typeof(SettingsPage);
+
+        NarrowHomeItem.IsSelected = pageType == typeof(HomePage);
+        NarrowChatItem.IsSelected = pageType == typeof(ChatPage);
+        NarrowSettingsItem.IsSelected = pageType == typeof(SettingsPage);
     }
 }

@@ -80,21 +80,21 @@
             BorderThickness="0,1,0,0"
             ColumnDefinitions="*,*,*"
             Padding="{StaticResource Space8}">
-        <Button Grid.Column="0"
-                Click="OnNavigateHome"
-                Content="Home"
-                HorizontalAlignment="Stretch"
-                Style="{StaticResource NavButtonStyle}" />
-        <Button Grid.Column="1"
-                Click="OnNavigateChat"
-                Content="Chat"
-                HorizontalAlignment="Stretch"
-                Style="{StaticResource NavButtonStyle}" />
-        <Button Grid.Column="2"
-                Click="OnNavigateSettings"
-                Content="Settings"
-                HorizontalAlignment="Stretch"
-                Style="{StaticResource NavButtonStyle}" />
+        <shell:TabItem x:Name="NarrowHomeItem"
+                       Grid.Column="0"
+                       Click="OnNavigateHome"
+                       IconData="{StaticResource IconHomeData}"
+                       Label="Home" />
+        <shell:TabItem x:Name="NarrowChatItem"
+                       Grid.Column="1"
+                       Click="OnNavigateChat"
+                       IconData="{StaticResource IconChatData}"
+                       Label="Chat" />
+        <shell:TabItem x:Name="NarrowSettingsItem"
+                       Grid.Column="2"
+                       Click="OnNavigateSettings"
+                       IconData="{StaticResource IconSettingsData}"
+                       Label="Settings" />
       </Grid>
     </Grid>
 
@@ -122,17 +122,5 @@
     </VisualStateManager.VisualStateGroups>
 
   </Grid>
-
-  <Page.Resources>
-    <Style x:Key="NavButtonStyle" TargetType="Button">
-      <Setter Property="Background" Value="Transparent" />
-      <Setter Property="BorderThickness" Value="0" />
-      <Setter Property="Foreground" Value="{ThemeResource TextBrush}" />
-      <Setter Property="FontFamily" Value="{StaticResource PrimaryFontFamily}" />
-      <Setter Property="Padding" Value="12,10" />
-      <Setter Property="FontSize" Value="{StaticResource FontSize14}" />
-      <Setter Property="CornerRadius" Value="{StaticResource Radius8}" />
-    </Style>
-  </Page.Resources>
 
 </Page>
