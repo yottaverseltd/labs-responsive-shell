@@ -136,7 +136,7 @@
             Background="{ThemeResource SurfaceElevatedBrush}"
             BorderBrush="{ThemeResource AccentMutedBrush}"
             BorderThickness="1"
-            CornerRadius="999"
+            CornerRadius="{StaticResource Radius12}"
             Padding="18,10,18,10"
             Opacity="0"
             IsHitTestVisible="False">
