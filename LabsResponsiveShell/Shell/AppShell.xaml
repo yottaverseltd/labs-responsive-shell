@@ -1,0 +1,131 @@
+<Page
+  x:Class="LabsResponsiveShell.Shell.AppShell"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:shell="using:LabsResponsiveShell.Shell"
+  Background="{ThemeResource BgBrush}"
+  Foreground="{ThemeResource TextBrush}">
+
+  <Grid x:Name="RootGrid"
+        ColumnDefinitions="*"
+        RowDefinitions="*">
+
+    <!-- wide: vertical nav rail left, content right -->
+    <Grid x:Name="WideLayout"
+          ColumnDefinitions="240,*"
+          Visibility="Collapsed">
+      <Grid Grid.Column="0"
+            Background="{ThemeResource SurfaceBrush}"
+            BorderBrush="{ThemeResource BorderBrush}"
+            BorderThickness="0,0,1,0"
+            Padding="{StaticResource Space16}"
+            RowDefinitions="Auto,*,Auto">
+        <TextBlock Grid.Row="0"
+                   Text="labs"
+                   FontSize="{StaticResource FontSize20}"
+                   Foreground="{ThemeResource TextBrush}"
+                   Margin="0,0,0,24" />
+        <StackPanel Grid.Row="1" Spacing="{StaticResource Space4}">
+          <Button x:Name="WideHomeButton"
+                  Click="OnNavigateHome"
+                  Content="Home"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Style="{StaticResource NavButtonStyle}" />
+          <Button x:Name="WideChatButton"
+                  Click="OnNavigateChat"
+                  Content="Chat"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Style="{StaticResource NavButtonStyle}" />
+          <Button x:Name="WideSettingsButton"
+                  Click="OnNavigateSettings"
+                  Content="Settings"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Style="{StaticResource NavButtonStyle}" />
+        </StackPanel>
+        <shell:IdentityChip Grid.Row="2" />
+      </Grid>
+      <Frame x:Name="WideContentFrame" Grid.Column="1" />
+    </Grid>
+
+    <!-- narrow: top bar, content, bottom tabs -->
+    <Grid x:Name="NarrowLayout"
+          RowDefinitions="Auto,*,Auto"
+          Visibility="Collapsed">
+      <Grid Grid.Row="0"
+            Background="{ThemeResource SurfaceBrush}"
+            BorderBrush="{ThemeResource BorderBrush}"
+            BorderThickness="0,0,0,1"
+            ColumnDefinitions="*,Auto"
+            Padding="{StaticResource Space16}">
+        <TextBlock Grid.Column="0"
+                   Text="labs"
+                   FontSize="{StaticResource FontSize20}"
+                   Foreground="{ThemeResource TextBrush}"
+                   VerticalAlignment="Center" />
+        <shell:IdentityChip Grid.Column="1" />
+      </Grid>
+      <Frame x:Name="NarrowContentFrame" Grid.Row="1" />
+      <Grid Grid.Row="2"
+            Background="{ThemeResource SurfaceBrush}"
+            BorderBrush="{ThemeResource BorderBrush}"
+            BorderThickness="0,1,0,0"
+            ColumnDefinitions="*,*,*"
+            Padding="{StaticResource Space8}">
+        <Button Grid.Column="0"
+                Click="OnNavigateHome"
+                Content="Home"
+                HorizontalAlignment="Stretch"
+                Style="{StaticResource NavButtonStyle}" />
+        <Button Grid.Column="1"
+                Click="OnNavigateChat"
+                Content="Chat"
+                HorizontalAlignment="Stretch"
+                Style="{StaticResource NavButtonStyle}" />
+        <Button Grid.Column="2"
+                Click="OnNavigateSettings"
+                Content="Settings"
+                HorizontalAlignment="Stretch"
+                Style="{StaticResource NavButtonStyle}" />
+      </Grid>
+    </Grid>
+
+    <VisualStateManager.VisualStateGroups>
+      <VisualStateGroup x:Name="Breakpoint">
+        <VisualState x:Name="NarrowState">
+          <VisualState.StateTriggers>
+            <AdaptiveTrigger MinWindowWidth="0" />
+          </VisualState.StateTriggers>
+          <VisualState.Setters>
+            <Setter Target="NarrowLayout.Visibility" Value="Visible" />
+            <Setter Target="WideLayout.Visibility" Value="Collapsed" />
+          </VisualState.Setters>
+        </VisualState>
+        <VisualState x:Name="WideState">
+          <VisualState.StateTriggers>
+            <AdaptiveTrigger MinWindowWidth="768" />
+          </VisualState.StateTriggers>
+          <VisualState.Setters>
+            <Setter Target="WideLayout.Visibility" Value="Visible" />
+            <Setter Target="NarrowLayout.Visibility" Value="Collapsed" />
+          </VisualState.Setters>
+        </VisualState>
+      </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+  </Grid>
+
+  <Page.Resources>
+    <Style x:Key="NavButtonStyle" TargetType="Button">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Foreground" Value="{ThemeResource TextBrush}" />
+      <Setter Property="Padding" Value="12,10" />
+      <Setter Property="FontSize" Value="{StaticResource FontSize14}" />
+      <Setter Property="CornerRadius" Value="{StaticResource Radius8}" />
+    </Style>
+  </Page.Resources>
+
+</Page>

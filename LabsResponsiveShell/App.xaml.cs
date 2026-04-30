@@ -1,4 +1,5 @@
 using LabsResponsiveShell.Motion;
+using LabsResponsiveShell.Shell;
 
 namespace LabsResponsiveShell;
 
@@ -28,7 +29,7 @@ public partial class App : Application
 
         if (rootFrame.Content is null)
         {
-            rootFrame.Navigate(typeof(MainPage), args.Arguments);
+            rootFrame.Navigate(typeof(AppShell), args.Arguments);
         }
 
         MainWindow.SetWindowIcon();

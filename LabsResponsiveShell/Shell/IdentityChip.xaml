@@ -1,0 +1,55 @@
+<UserControl
+  x:Class="LabsResponsiveShell.Shell.IdentityChip"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Button Padding="{StaticResource Space8}"
+          Background="Transparent"
+          BorderBrush="{ThemeResource BorderBrush}"
+          BorderThickness="1"
+          CornerRadius="{StaticResource Radius12}"
+          HorizontalContentAlignment="Left">
+    <Button.Flyout>
+      <Flyout Placement="Top">
+        <StackPanel Width="240" Spacing="{StaticResource Space12}">
+          <TextBlock Text="Preferences"
+                     FontSize="{StaticResource FontSize14}"
+                     Foreground="{ThemeResource TextMutedBrush}" />
+          <ToggleSwitch Header="Dark theme"
+                        IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
+          <ToggleSwitch Header="Right to left"
+                        IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
+          <ToggleSwitch Header="Reduced motion"
+                        IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+        </StackPanel>
+      </Flyout>
+    </Button.Flyout>
+
+    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="{StaticResource Space8}">
+      <Grid Grid.Column="0" Width="36" Height="36">
+        <Ellipse Fill="{ThemeResource AccentMutedBrush}" />
+        <TextBlock Text="Q"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="{StaticResource FontSize16}"
+                   Foreground="{ThemeResource TextBrush}" />
+        <Ellipse Width="10"
+                 Height="10"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Bottom"
+                 Fill="#48D597"
+                 Stroke="{ThemeResource BgBrush}"
+                 StrokeThickness="2" />
+      </Grid>
+      <StackPanel Grid.Column="1" VerticalAlignment="Center">
+        <TextBlock Text="qaiser"
+                   FontSize="{StaticResource FontSize14}"
+                   Foreground="{ThemeResource TextBrush}" />
+        <TextBlock Text="online"
+                   FontSize="{StaticResource FontSize12}"
+                   Foreground="{ThemeResource TextMutedBrush}" />
+      </StackPanel>
+    </Grid>
+  </Button>
+
+</UserControl>
