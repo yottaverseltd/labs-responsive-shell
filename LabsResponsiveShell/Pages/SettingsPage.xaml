@@ -1,49 +1,140 @@
-<Page
-  x:Class="LabsResponsiveShell.Pages.SettingsPage"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Background="Transparent"
-  Foreground="{ThemeResource TextBrush}">
+<Page x:Class="LabsResponsiveShell.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent"
+      Foreground="{ThemeResource TextBrush}">
 
-  <ScrollViewer>
-    <StackPanel Padding="{StaticResource Space32}"
-                Spacing="{StaticResource Space24}"
-                MaxWidth="{StaticResource ReadingColumnMaxWidth}"
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Padding="24,28,24,32"
+                Spacing="32"
+                MaxWidth="720"
                 HorizontalAlignment="Left">
 
-      <StackPanel Spacing="{StaticResource Space8}">
-        <TextBlock Style="{StaticResource EyebrowText}"
-                   Text="PREFERENCES" />
-        <TextBlock Style="{StaticResource TitleText}"
-                   Text="Settings" />
+      <StackPanel Spacing="8">
+        <TextBlock Style="{StaticResource EyebrowText}" Text="PREFERENCES" />
+        <TextBlock Style="{StaticResource TitleText}" Text="Settings" />
       </StackPanel>
 
+      <!-- Appearance -->
       <Border Background="{ThemeResource SurfaceBrush}"
               BorderBrush="{ThemeResource BorderBrush}"
               BorderThickness="1"
-              CornerRadius="{StaticResource Radius12}"
-              Padding="{StaticResource Space24}">
-        <StackPanel Spacing="{StaticResource Space16}">
-          <TextBlock Style="{StaticResource EyebrowText}"
-                     Text="APPEARANCE" />
-          <ToggleSwitch Header="Dark theme"
-                        IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
-          <ToggleSwitch Header="Right to left"
-                        IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
-          <ToggleSwitch Header="Reduced motion"
-                        IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+              CornerRadius="{StaticResource Radius16}"
+              Padding="24,22,24,22">
+        <StackPanel Spacing="12">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="APPEARANCE" />
+          <ToggleSwitch Header="Dark theme" IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
+          <ToggleSwitch Header="Right to left" IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
+          <ToggleSwitch Header="Reduced motion" IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
         </StackPanel>
       </Border>
 
-      <StackPanel Spacing="{StaticResource Space8}">
-        <TextBlock Style="{StaticResource EyebrowText}"
-                   Text="ABOUT THIS LAB" />
-        <TextBlock Style="{StaticResource BodyText}"
-                   Text="labs-responsive-shell is a minimal Uno Platform sample. It demonstrates a responsive shell, a token-driven style layer, and reduced-motion awareness. No network, no telemetry, no auth." />
-        <HyperlinkButton NavigateUri="https://github.com/yottaverseltd/labs-responsive-shell"
-                         Padding="0"
-                         Content="github.com/yottaverseltd/labs-responsive-shell" />
-      </StackPanel>
+      <!-- Notifications -->
+      <Border Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="1"
+              CornerRadius="{StaticResource Radius16}"
+              Padding="24,22,24,22">
+        <StackPanel Spacing="12">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="NOTIFICATIONS" />
+
+          <ToggleSwitch Header="Push notifications"
+                        IsOn="True"
+                        IsHitTestVisible="False"
+                        Opacity="0.65" />
+
+          <StackPanel Spacing="8">
+            <TextBlock Style="{StaticResource CaptionText}" Text="QUIET HOURS" />
+            <Grid ColumnDefinitions="*,Auto,*"
+                  ColumnSpacing="12"
+                  IsHitTestVisible="False"
+                  Opacity="0.55">
+              <TimePicker Grid.Column="0" Header="From" Time="22:00:00" />
+              <TextBlock Grid.Column="1"
+                         VerticalAlignment="Bottom"
+                         Margin="0,0,0,12"
+                         Style="{StaticResource MutedText}"
+                         Text="to" />
+              <TimePicker Grid.Column="2" Header="To" Time="07:00:00" />
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="8">
+            <TextBlock Style="{StaticResource CaptionText}" Text="SOUND" />
+            <StackPanel Orientation="Horizontal" Spacing="20">
+              <RadioButton x:Name="SoundSubtleOption"
+                           Content="Subtle"
+                           GroupName="Sound"
+                           Checked="OnSoundChanged" />
+              <RadioButton x:Name="SoundFullOption"
+                           Content="Full"
+                           GroupName="Sound"
+                           Checked="OnSoundChanged" />
+              <RadioButton x:Name="SoundOffOption"
+                           Content="Off"
+                           GroupName="Sound"
+                           Checked="OnSoundChanged" />
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- Privacy -->
+      <Border Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="1"
+              CornerRadius="{StaticResource Radius16}"
+              Padding="24,22,24,22">
+        <StackPanel Spacing="12">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="PRIVACY" />
+
+          <ToggleSwitch Header="Read receipts" IsOn="{Binding ReadReceiptsEnabled, Mode=TwoWay}" />
+
+          <StackPanel Spacing="8">
+            <TextBlock Style="{StaticResource CaptionText}" Text="LAST SEEN" />
+            <StackPanel Orientation="Horizontal" Spacing="20">
+              <RadioButton x:Name="LastSeenEveryoneOption"
+                           Content="Everyone"
+                           GroupName="LastSeen"
+                           Checked="OnLastSeenChanged" />
+              <RadioButton x:Name="LastSeenContactsOption"
+                           Content="Contacts"
+                           GroupName="LastSeen"
+                           Checked="OnLastSeenChanged" />
+              <RadioButton x:Name="LastSeenNobodyOption"
+                           Content="Nobody"
+                           GroupName="LastSeen"
+                           Checked="OnLastSeenChanged" />
+            </StackPanel>
+          </StackPanel>
+
+          <StackPanel Spacing="8">
+            <TextBlock Style="{StaticResource CaptionText}" Text="BLOCK LIST" />
+            <Border Background="{ThemeResource SurfaceElevatedBrush}"
+                    CornerRadius="{StaticResource Radius12}"
+                    Padding="16,14,16,14">
+              <TextBlock Style="{StaticResource MutedText}" Text="No blocked users" />
+            </Border>
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <!-- About -->
+      <Border Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="1"
+              CornerRadius="{StaticResource Radius16}"
+              Padding="24,22,24,22">
+        <StackPanel Spacing="10">
+          <TextBlock Style="{StaticResource EyebrowText}" Text="ABOUT" />
+          <TextBlock Style="{StaticResource BodyText}"
+                     Text="Proof, not pitch. This lab reframes a small Uno shell as a responsive messaging app on the same token layer." />
+          <HyperlinkButton NavigateUri="https://github.com/yottaverseltd/labs-responsive-shell"
+                           Content="github.com/yottaverseltd/labs-responsive-shell"
+                           Padding="0" />
+          <TextBlock Style="{StaticResource CaptionText}" Text="v0.1.0" />
+        </StackPanel>
+      </Border>
 
     </StackPanel>
   </ScrollViewer>
