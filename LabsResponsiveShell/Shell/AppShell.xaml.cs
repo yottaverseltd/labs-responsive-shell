@@ -11,6 +11,7 @@ public sealed partial class AppShell : Page
     public static AppShell? Current { get; private set; }
 
     private DispatcherTimer? _toastTimer;
+    private Type _routeType = typeof(HomePage);
 
     public AppShell()
     {
@@ -21,6 +22,7 @@ public sealed partial class AppShell : Page
         ToastRelay.Requested += OnToastRequested;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
+        RootGrid.SizeChanged += OnRootGridSizeChanged;
         WideContentFrame.Navigated += OnFrameNavigated;
         NarrowContentFrame.Navigated += OnFrameNavigated;
     }
@@ -34,6 +36,7 @@ public sealed partial class AppShell : Page
     {
         AppSettings.Current.PropertyChanged -= OnSettingsChanged;
         ToastRelay.Requested -= OnToastRequested;
+        RootGrid.SizeChanged -= OnRootGridSizeChanged;
         WideContentFrame.Navigated -= OnFrameNavigated;
         NarrowContentFrame.Navigated -= OnFrameNavigated;
         if (ReferenceEquals(Current, this))
@@ -50,9 +53,27 @@ public sealed partial class AppShell : Page
         }
     }
 
-    private Frame ActiveFrame => WideLayout.Visibility == Visibility.Visible
-        ? WideContentFrame
-        : NarrowContentFrame;
+    private void OnRootGridSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        // Keep both frames on the same route when the breakpoint toggles (WASM/desktop resize).
+        SyncBothFrames(_routeType);
+    }
+
+    private void SyncBothFrames(Type pageType)
+    {
+        NavigateFrameIfNeeded(WideContentFrame, pageType);
+        NavigateFrameIfNeeded(NarrowContentFrame, pageType);
+    }
+
+    private static void NavigateFrameIfNeeded(Frame frame, Type pageType)
+    {
+        if (frame.Content?.GetType() == pageType)
+        {
+            return;
+        }
+
+        frame.Navigate(pageType);
+    }
 
     private void OnSettingsChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -88,8 +109,9 @@ public sealed partial class AppShell : Page
 
     private void Navigate(Type pageType)
     {
+        _routeType = pageType;
         ShowSkeleton();
-        ActiveFrame.Navigate(pageType);
+        SyncBothFrames(pageType);
         UpdateSelection(pageType);
     }
 
