@@ -1,3 +1,5 @@
+using LabsResponsiveShell.Motion;
+
 namespace LabsResponsiveShell;
 
 public partial class App : Application
@@ -11,6 +13,7 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
+        ReducedMotion.Initialize();
         MainWindow = new Window();
 #if DEBUG
         MainWindow.UseStudio();
