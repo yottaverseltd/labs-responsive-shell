@@ -1,0 +1,1 @@
+Android-specific resources for Labs responsive shell. Application name and theme live under values/.

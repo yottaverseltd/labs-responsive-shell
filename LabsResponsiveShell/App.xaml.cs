@@ -32,7 +32,9 @@ public partial class App : Application
             rootFrame.Navigate(typeof(AppShell), args.Arguments);
         }
 
+#if !__ANDROID__
         MainWindow.SetWindowIcon();
+#endif
         MainWindow.Activate();
     }
 
