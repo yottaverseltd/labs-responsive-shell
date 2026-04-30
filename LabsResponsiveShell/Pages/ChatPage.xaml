@@ -3,7 +3,7 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:chat="using:LabsResponsiveShell.Pages"
-  Background="{ThemeResource BgBrush}"
+  Background="Transparent"
   Foreground="{ThemeResource TextBrush}">
 
   <Page.Resources>

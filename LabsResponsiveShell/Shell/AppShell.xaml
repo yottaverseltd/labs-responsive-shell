@@ -49,7 +49,11 @@
         </StackPanel>
         <shell:IdentityChip Grid.Row="2" />
       </Grid>
-      <Frame x:Name="WideContentFrame" Grid.Column="1" />
+      <Grid Grid.Column="1">
+        <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
+                   IsHitTestVisible="False" />
+        <Frame x:Name="WideContentFrame" Background="Transparent" />
+      </Grid>
     </Grid>
 
     <!-- narrow: top bar, content, bottom tabs -->
@@ -71,7 +75,11 @@
                    VerticalAlignment="Center" />
         <shell:IdentityChip Grid.Column="1" />
       </Grid>
-      <Frame x:Name="NarrowContentFrame" Grid.Row="1" />
+      <Grid Grid.Row="1">
+        <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
+                   IsHitTestVisible="False" />
+        <Frame x:Name="NarrowContentFrame" Background="Transparent" />
+      </Grid>
       <Grid Grid.Row="2"
             Background="{ThemeResource SurfaceBrush}"
             BorderBrush="{ThemeResource BorderBrush}"
