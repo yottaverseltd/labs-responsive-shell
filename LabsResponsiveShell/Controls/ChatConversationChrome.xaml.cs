@@ -129,7 +129,7 @@ public sealed partial class ChatConversationChrome : UserControl
     private void TypingTimerOnTick(object? sender, object e)
     {
         _typingPhase = (_typingPhase + 1) % 3;
-        const double lo = 0.36;
+        const double lo = 0.4;
         const double hi = 0.9;
         TypingDotA.Opacity = _typingPhase == 0 ? hi : lo;
         TypingDotB.Opacity = _typingPhase == 1 ? hi : lo;
@@ -146,35 +146,55 @@ public sealed partial class ChatConversationChrome : UserControl
 
         composite.CenterX = 24;
         composite.CenterY = 24;
+        composite.ScaleX = composite.ScaleY = 1;
 
         if (ReducedMotion.IsReducedMotion)
         {
-            composite.ScaleX = composite.ScaleY = 1;
             return;
         }
 
+        // one-shot pulse: expand then settle back to rest in a single 220 ms window
         var pulse = new Storyboard();
-        var sx = new DoubleAnimation
-        {
-            From = 0.93,
-            To = 1.08,
-            Duration = new Duration(TimeSpan.FromMilliseconds(220)),
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
-        };
-        var sy = new DoubleAnimation
-        {
-            From = 0.93,
-            To = 1.08,
-            Duration = new Duration(TimeSpan.FromMilliseconds(220)),
-            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
-        };
+        var sx = BuildHaloScaleKeyframes();
+        var sy = BuildHaloScaleKeyframes();
         Storyboard.SetTarget(sx, composite);
         Storyboard.SetTarget(sy, composite);
         Storyboard.SetTargetProperty(sx, nameof(CompositeTransform.ScaleX));
         Storyboard.SetTargetProperty(sy, nameof(CompositeTransform.ScaleY));
         pulse.Children.Add(sx);
         pulse.Children.Add(sy);
+        pulse.Completed += (_, _) =>
+        {
+            composite.ScaleX = 1;
+            composite.ScaleY = 1;
+        };
         pulse.Begin();
+    }
+
+    private static DoubleAnimationUsingKeyFrames BuildHaloScaleKeyframes()
+    {
+        var anim = new DoubleAnimationUsingKeyFrames
+        {
+            Duration = new Duration(TimeSpan.FromMilliseconds(220)),
+        };
+        anim.KeyFrames.Add(new LinearDoubleKeyFrame
+        {
+            KeyTime = KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(0)),
+            Value = 0.95,
+        });
+        anim.KeyFrames.Add(new EasingDoubleKeyFrame
+        {
+            KeyTime = KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(110)),
+            Value = 1.08,
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+        });
+        anim.KeyFrames.Add(new EasingDoubleKeyFrame
+        {
+            KeyTime = KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(220)),
+            Value = 1.0,
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn },
+        });
+        return anim;
     }
 
     private void TryScrollMessagesToEnd()

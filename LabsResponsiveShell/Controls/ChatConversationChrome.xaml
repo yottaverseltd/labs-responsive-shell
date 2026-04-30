@@ -310,9 +310,9 @@
                   CornerRadius="{StaticResource Radius20}"
                   Background="{ThemeResource SurfaceElevatedBrush}">
             <StackPanel x:Name="TypingDotsStrip" Orientation="Horizontal" Spacing="8">
-              <Ellipse x:Name="TypingDotA" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.35" />
-              <Ellipse x:Name="TypingDotB" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.55" />
-              <Ellipse x:Name="TypingDotC" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.75" />
+              <Ellipse x:Name="TypingDotA" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.4" />
+              <Ellipse x:Name="TypingDotB" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.4" />
+              <Ellipse x:Name="TypingDotC" Width="8" Height="8" Fill="{ThemeResource AccentBrush}" Opacity="0.4" />
             </StackPanel>
           </Border>
         </StackPanel>
