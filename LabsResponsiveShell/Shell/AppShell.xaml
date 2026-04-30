@@ -127,6 +127,28 @@
       </StackPanel>
     </Border>
 
+    <!-- toast host: one element, bottom center, visible on demand -->
+    <Border x:Name="ToastHost"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Margin="0,0,0,36"
+            Background="{ThemeResource SurfaceElevatedBrush}"
+            BorderBrush="{ThemeResource AccentMutedBrush}"
+            BorderThickness="1"
+            CornerRadius="999"
+            Padding="18,10,18,10"
+            Opacity="0"
+            IsHitTestVisible="False">
+      <Border.RenderTransform>
+        <TranslateTransform />
+      </Border.RenderTransform>
+      <TextBlock x:Name="ToastText"
+                 FontFamily="{StaticResource PrimaryFontFamily}"
+                 FontSize="{StaticResource FontSize14}"
+                 Foreground="{ThemeResource TextBrush}" />
+    </Border>
+
     <VisualStateManager.VisualStateGroups>
       <VisualStateGroup x:Name="Breakpoint">
         <VisualState x:Name="NarrowState">

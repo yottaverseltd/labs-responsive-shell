@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using LabsResponsiveShell.Data;
 using LabsResponsiveShell.Motion;
 using LabsResponsiveShell.Pages;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -9,12 +10,15 @@ public sealed partial class AppShell : Page
 {
     public static AppShell? Current { get; private set; }
 
+    private DispatcherTimer? _toastTimer;
+
     public AppShell()
     {
         InitializeComponent();
         Current = this;
         ApplyFromSettings();
         AppSettings.Current.PropertyChanged += OnSettingsChanged;
+        ToastRelay.Requested += OnToastRequested;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
         WideContentFrame.Navigated += OnFrameNavigated;
@@ -29,6 +33,7 @@ public sealed partial class AppShell : Page
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         AppSettings.Current.PropertyChanged -= OnSettingsChanged;
+        ToastRelay.Requested -= OnToastRequested;
         WideContentFrame.Navigated -= OnFrameNavigated;
         NarrowContentFrame.Navigated -= OnFrameNavigated;
         if (ReferenceEquals(Current, this))
@@ -132,6 +137,82 @@ public sealed partial class AppShell : Page
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
         };
         Storyboard.SetTarget(fade, SkeletonOverlay);
+        Storyboard.SetTargetProperty(fade, "Opacity");
+        story.Children.Add(fade);
+        story.Begin();
+    }
+
+    private void OnToastRequested(object? sender, string message)
+    {
+        ToastText.Text = message;
+        if (ToastHost.RenderTransform is not TranslateTransform t)
+        {
+            t = new TranslateTransform();
+            ToastHost.RenderTransform = t;
+        }
+
+        _toastTimer?.Stop();
+
+        if (ReducedMotion.IsReducedMotion)
+        {
+            ToastHost.Opacity = 1;
+            t.Y = 0;
+        }
+        else
+        {
+            var show = new Storyboard();
+            var opacityIn = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = new Duration(TimeSpan.FromMilliseconds(160)),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+            };
+            Storyboard.SetTarget(opacityIn, ToastHost);
+            Storyboard.SetTargetProperty(opacityIn, "Opacity");
+            var slideIn = new DoubleAnimation
+            {
+                From = 16,
+                To = 0,
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+            };
+            Storyboard.SetTarget(slideIn, t);
+            Storyboard.SetTargetProperty(slideIn, "Y");
+            show.Children.Add(opacityIn);
+            show.Children.Add(slideIn);
+            show.Begin();
+        }
+
+        _toastTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
+        _toastTimer.Tick += ToastTimerOnTick;
+        _toastTimer.Start();
+    }
+
+    private void ToastTimerOnTick(object? sender, object e)
+    {
+        if (_toastTimer is not null)
+        {
+            _toastTimer.Tick -= ToastTimerOnTick;
+            _toastTimer.Stop();
+            _toastTimer = null;
+        }
+
+        if (ReducedMotion.IsReducedMotion)
+        {
+            ToastHost.Opacity = 0;
+            return;
+        }
+
+        var story = new Storyboard();
+        var fade = new DoubleAnimation
+        {
+            From = 1,
+            To = 0,
+            Duration = new Duration(TimeSpan.FromMilliseconds(160)),
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn },
+        };
+        Storyboard.SetTarget(fade, ToastHost);
         Storyboard.SetTargetProperty(fade, "Opacity");
         story.Children.Add(fade);
         story.Begin();
