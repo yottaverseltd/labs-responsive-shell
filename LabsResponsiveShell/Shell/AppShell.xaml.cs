@@ -1,14 +1,18 @@
 using System.ComponentModel;
 using LabsResponsiveShell.Motion;
 using LabsResponsiveShell.Pages;
+using Microsoft.UI.Xaml.Media.Animation;
 
 namespace LabsResponsiveShell.Shell;
 
 public sealed partial class AppShell : Page
 {
+    public static AppShell? Current { get; private set; }
+
     public AppShell()
     {
         InitializeComponent();
+        Current = this;
         ApplyFromSettings();
         AppSettings.Current.PropertyChanged += OnSettingsChanged;
         Loaded += OnLoaded;
@@ -27,6 +31,10 @@ public sealed partial class AppShell : Page
         AppSettings.Current.PropertyChanged -= OnSettingsChanged;
         WideContentFrame.Navigated -= OnFrameNavigated;
         NarrowContentFrame.Navigated -= OnFrameNavigated;
+        if (ReferenceEquals(Current, this))
+        {
+            Current = null;
+        }
     }
 
     private void OnFrameNavigated(object sender, NavigationEventArgs e)
@@ -54,8 +62,7 @@ public sealed partial class AppShell : Page
 
     private void ApplyFromSettings()
     {
-        // why: setting theme on the window root makes the swap propagate across the whole tree,
-        // including the Frame's navigated content on both Desktop and WASM heads
+        // why: setting theme on the window root propagates across the tree, including frame content
         if (App.MainWindow?.Content is FrameworkElement root)
         {
             root.RequestedTheme = AppSettings.Current.Theme;
@@ -71,8 +78,12 @@ public sealed partial class AppShell : Page
 
     private void OnNavigateSettings(object sender, RoutedEventArgs e) => Navigate(typeof(SettingsPage));
 
+    /// <summary>Public hook: Home row taps route here with a pending conversation id.</summary>
+    public void NavigateToChat() => Navigate(typeof(ChatPage));
+
     private void Navigate(Type pageType)
     {
+        ShowSkeleton();
         ActiveFrame.Navigate(pageType);
         UpdateSelection(pageType);
     }
@@ -86,5 +97,43 @@ public sealed partial class AppShell : Page
         NarrowHomeItem.IsSelected = pageType == typeof(HomePage);
         NarrowChatItem.IsSelected = pageType == typeof(ChatPage);
         NarrowSettingsItem.IsSelected = pageType == typeof(SettingsPage);
+    }
+
+    private void ShowSkeleton()
+    {
+        SkeletonOverlay.Opacity = 1;
+        var hold = ReducedMotion.IsReducedMotion
+            ? TimeSpan.FromMilliseconds(120)
+            : TimeSpan.FromMilliseconds(200);
+
+        var holdTimer = new DispatcherTimer { Interval = hold };
+        holdTimer.Tick += (_, _) =>
+        {
+            holdTimer.Stop();
+            FadeSkeletonOut();
+        };
+        holdTimer.Start();
+    }
+
+    private void FadeSkeletonOut()
+    {
+        if (ReducedMotion.IsReducedMotion)
+        {
+            SkeletonOverlay.Opacity = 0;
+            return;
+        }
+
+        var story = new Storyboard();
+        var fade = new DoubleAnimation
+        {
+            From = 1,
+            To = 0,
+            Duration = new Duration(TimeSpan.FromMilliseconds(140)),
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+        };
+        Storyboard.SetTarget(fade, SkeletonOverlay);
+        Storyboard.SetTargetProperty(fade, "Opacity");
+        story.Children.Add(fade);
+        story.Begin();
     }
 }

@@ -43,11 +43,7 @@
         </StackPanel>
         <shell:IdentityChip Grid.Row="2" />
       </Grid>
-      <Grid Grid.Column="1">
-        <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
-                   IsHitTestVisible="False" />
-        <Frame x:Name="WideContentFrame" Background="Transparent" />
-      </Grid>
+      <Frame x:Name="WideContentFrame" Grid.Column="1" Background="Transparent" />
     </Grid>
 
     <!-- narrow: top bar, content, bottom tabs -->
@@ -69,11 +65,7 @@
                    VerticalAlignment="Center" />
         <shell:IdentityChip Grid.Column="1" />
       </Grid>
-      <Grid Grid.Row="1">
-        <Rectangle Fill="{ThemeResource AuroraGlowBrush}"
-                   IsHitTestVisible="False" />
-        <Frame x:Name="NarrowContentFrame" Background="Transparent" />
-      </Grid>
+      <Frame x:Name="NarrowContentFrame" Grid.Row="1" Background="Transparent" />
       <Grid Grid.Row="2"
             Background="{ThemeResource SurfaceBrush}"
             BorderBrush="{ThemeResource BorderBrush}"
@@ -97,6 +89,43 @@
                        Label="Settings" />
       </Grid>
     </Grid>
+
+    <!-- skeleton overlay: briefly covers tab switches; Home draws its own hero glow -->
+    <Border x:Name="SkeletonOverlay"
+            Grid.Column="0"
+            Background="{ThemeResource BgBrush}"
+            Opacity="0"
+            IsHitTestVisible="False">
+      <StackPanel Margin="24,28,24,32"
+                  MaxWidth="960"
+                  HorizontalAlignment="Left"
+                  Spacing="18">
+        <Rectangle Height="20"
+                   Width="140"
+                   HorizontalAlignment="Left"
+                   RadiusX="4"
+                   RadiusY="4"
+                   Fill="{ThemeResource SurfaceElevatedBrush}" />
+        <Border Height="96"
+                Background="{ThemeResource SurfaceElevatedBrush}"
+                CornerRadius="{StaticResource Radius16}" />
+        <Rectangle Height="14"
+                   Width="180"
+                   HorizontalAlignment="Left"
+                   RadiusX="4"
+                   RadiusY="4"
+                   Fill="{ThemeResource SurfaceElevatedBrush}" />
+        <Border Height="64"
+                Background="{ThemeResource SurfaceElevatedBrush}"
+                CornerRadius="{StaticResource Radius12}" />
+        <Border Height="64"
+                Background="{ThemeResource SurfaceElevatedBrush}"
+                CornerRadius="{StaticResource Radius12}" />
+        <Border Height="64"
+                Background="{ThemeResource SurfaceElevatedBrush}"
+                CornerRadius="{StaticResource Radius12}" />
+      </StackPanel>
+    </Border>
 
     <VisualStateManager.VisualStateGroups>
       <VisualStateGroup x:Name="Breakpoint">
