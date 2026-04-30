@@ -4,6 +4,8 @@ Mock messaging shell for Uno Platform: responsive layout, shared tokens, motion 
 
 **Live:** https://yottaverseltd.github.io/labs-responsive-shell/
 
+**Troubleshooting:** If the live URL returns 404, open **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**, then re-run the latest **deploy-pages** workflow.
+
 **Desktop (Windows):** https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous — download `labs-responsive-shell-net9.0-desktop.zip` (refreshed on every successful `main` build).
 
 **Android:** https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous — download `labs-responsive-shell-net9.0-android.apk`. Sideload only; Android may show an “unknown publisher” warning because the CI build uses an ephemeral debug-style signing key.
