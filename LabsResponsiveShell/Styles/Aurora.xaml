@@ -9,9 +9,15 @@
         <GradientStop Color="#1FFFFFFF" Offset="0" />
         <GradientStop Color="#0AFFFFFF" Offset="1" />
       </LinearGradientBrush>
-      <RadialGradientBrush x:Key="AuroraGlowBrush" Center="0.5,0.0" RadiusX="0.9" RadiusY="0.7">
-        <GradientStop Color="#507DA3FF" Offset="0" />
-        <GradientStop Color="#00000000" Offset="1" />
+      <!-- why: soft teal halo placed behind the hero, 10% opacity, no second gradient anywhere -->
+      <RadialGradientBrush x:Key="AuroraGlowBrush"
+                           Center="0.3,0.05"
+                           GradientOrigin="0.3,0.05"
+                           RadiusX="0.85"
+                           RadiusY="0.85">
+        <GradientStop Color="#1A2DD4BF" Offset="0" />
+        <GradientStop Color="#0D2DD4BF" Offset="0.45" />
+        <GradientStop Color="#000B0D10" Offset="1" />
       </RadialGradientBrush>
     </ResourceDictionary>
 
@@ -20,9 +26,14 @@
         <GradientStop Color="#14000000" Offset="0" />
         <GradientStop Color="#05000000" Offset="1" />
       </LinearGradientBrush>
-      <RadialGradientBrush x:Key="AuroraGlowBrush" Center="0.5,0.0" RadiusX="0.9" RadiusY="0.7">
-        <GradientStop Color="#402B59FF" Offset="0" />
-        <GradientStop Color="#00000000" Offset="1" />
+      <RadialGradientBrush x:Key="AuroraGlowBrush"
+                           Center="0.3,0.05"
+                           GradientOrigin="0.3,0.05"
+                           RadiusX="0.85"
+                           RadiusY="0.85">
+        <GradientStop Color="#14F59E0B" Offset="0" />
+        <GradientStop Color="#08F59E0B" Offset="0.45" />
+        <GradientStop Color="#00FAF7F0" Offset="1" />
       </RadialGradientBrush>
     </ResourceDictionary>
 

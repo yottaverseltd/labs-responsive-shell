@@ -41,6 +41,13 @@ public sealed partial class AppShell : Page
 
     private void ApplyFromSettings()
     {
+        // why: setting theme on the window root makes the swap propagate across the whole tree,
+        // including the Frame's navigated content on both Desktop and WASM heads
+        if (App.MainWindow?.Content is FrameworkElement root)
+        {
+            root.RequestedTheme = AppSettings.Current.Theme;
+        }
+
         RequestedTheme = AppSettings.Current.Theme;
         FlowDirection = AppSettings.Current.FlowDirection;
     }
