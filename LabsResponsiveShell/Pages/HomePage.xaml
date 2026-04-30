@@ -9,18 +9,20 @@
     <Grid Padding="{StaticResource Space32}"
           RowDefinitions="Auto,Auto,Auto"
           RowSpacing="{StaticResource Space32}"
-          MaxWidth="880"
+          MaxWidth="{StaticResource ReadingColumnMaxWidth}"
           HorizontalAlignment="Center">
 
       <StackPanel Grid.Row="0" Spacing="{StaticResource Space16}">
         <TextBlock Text="Proof, not pitch."
                    FontSize="{StaticResource FontSize40}"
                    FontWeight="SemiBold"
-                   Foreground="{ThemeResource TextBrush}" />
+                   Foreground="{ThemeResource TextBrush}"
+                   TextWrapping="Wrap" />
         <TextBlock FontSize="{StaticResource FontSize16}"
                    Foreground="{ThemeResource TextMutedBrush}"
                    LineHeight="26"
-                   MaxWidth="620"
+                   MaxWidth="{StaticResource ReadingColumnMaxWidth}"
+                   TextWrapping="Wrap"
                    Text="A small Uno shell. Responsive on day one, token-driven, reduced-motion aware. Toggle any setting and watch the app respond." />
       </StackPanel>
 
@@ -33,10 +35,12 @@
         <StackPanel Spacing="{StaticResource Space16}">
           <TextBlock Text="Try it"
                      FontSize="{StaticResource FontSize20}"
-                     Foreground="{ThemeResource TextBrush}" />
+                     Foreground="{ThemeResource TextBrush}"
+                     TextWrapping="Wrap" />
           <TextBlock Text="Three switches, one shell. Nothing else wired."
                      FontSize="{StaticResource FontSize14}"
-                     Foreground="{ThemeResource TextMutedBrush}" />
+                     Foreground="{ThemeResource TextMutedBrush}"
+                     TextWrapping="Wrap" />
           <StackPanel Spacing="{StaticResource Space12}">
             <ToggleSwitch Header="Dark theme"
                           IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
@@ -51,10 +55,12 @@
       <StackPanel Grid.Row="2" Spacing="{StaticResource Space8}">
         <TextBlock Text="What you are looking at"
                    FontSize="{StaticResource FontSize14}"
-                   Foreground="{ThemeResource TextMutedBrush}" />
+                   Foreground="{ThemeResource TextMutedBrush}"
+                   TextWrapping="Wrap" />
         <TextBlock FontSize="{StaticResource FontSize14}"
                    Foreground="{ThemeResource TextBrush}"
                    LineHeight="22"
+                   TextWrapping="Wrap"
                    Text="The nav rail collapses into a bottom tab bar under 768 px. Colors resolve through a token layer. Durations clamp to zero under prefers-reduced-motion." />
       </StackPanel>
 
