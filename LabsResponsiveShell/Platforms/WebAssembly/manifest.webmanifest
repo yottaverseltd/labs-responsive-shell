@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "LabsResponsiveShell",
+  "display": "standalone",
+  "name": "LabsResponsiveShell",
+  "short_name": "LabsResponsiveShell",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

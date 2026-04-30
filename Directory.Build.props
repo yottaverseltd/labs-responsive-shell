@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- why: Uno single-project emits these on every build; they carry no code-quality signal -->
+    <NoWarn>$(NoWarn);NU1507;NETSDK1201;PRI257;CS1591;CA1010;IDE0008;IDE0060;IDE0130</NoWarn>
+  </PropertyGroup>
+</Project>
