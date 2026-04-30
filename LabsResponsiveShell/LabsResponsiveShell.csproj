@@ -6,7 +6,7 @@
     <UnoSingleProject>true</UnoSingleProject>
 
     <!-- Display name -->
-    <ApplicationTitle>LabsResponsiveShell</ApplicationTitle>
+    <ApplicationTitle>Labs</ApplicationTitle>
     <!-- App Identifier -->
     <ApplicationId>com.companyname.labsresponsiveshell</ApplicationId>
     <!-- Versions -->
@@ -15,7 +15,7 @@
     <!-- Package Publisher -->
     <ApplicationPublisher>LabsResponsiveShell</ApplicationPublisher>
     <!-- Package Description -->
-    <Description>LabsResponsiveShell powered by Uno Platform.</Description>
+    <Description>Responsive shell lab: token-driven layout, chat-sized chrome, WASM + desktop.</Description>
 
     <!--
       UnoFeatures are used to quickly add and manage features enabled for your app.
@@ -24,6 +24,9 @@
     <UnoFeatures>
       SkiaRenderer;
     </UnoFeatures>
+
+    <!-- Wasm boot splash background (merged into AppManifest.js by Resizetizer — default is #FFFFFF) -->
+    <UnoSplashScreenColor>#0B0D10</UnoSplashScreenColor>
   </PropertyGroup>
 
 </Project>
