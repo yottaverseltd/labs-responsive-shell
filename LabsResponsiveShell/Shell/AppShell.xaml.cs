@@ -16,7 +16,7 @@ public sealed partial class AppShell : Page
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ActiveFrame.Navigate(typeof(HomePage));
+        Navigate(typeof(HomePage));
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -52,12 +52,22 @@ public sealed partial class AppShell : Page
         FlowDirection = AppSettings.Current.FlowDirection;
     }
 
-    private void OnNavigateHome(object sender, RoutedEventArgs e) =>
-        ActiveFrame.Navigate(typeof(HomePage));
+    private void OnNavigateHome(object sender, RoutedEventArgs e) => Navigate(typeof(HomePage));
 
-    private void OnNavigateChat(object sender, RoutedEventArgs e) =>
-        ActiveFrame.Navigate(typeof(ChatPage));
+    private void OnNavigateChat(object sender, RoutedEventArgs e) => Navigate(typeof(ChatPage));
 
-    private void OnNavigateSettings(object sender, RoutedEventArgs e) =>
-        ActiveFrame.Navigate(typeof(SettingsPage));
+    private void OnNavigateSettings(object sender, RoutedEventArgs e) => Navigate(typeof(SettingsPage));
+
+    private void Navigate(Type pageType)
+    {
+        ActiveFrame.Navigate(pageType);
+        UpdateSelection(pageType);
+    }
+
+    private void UpdateSelection(Type pageType)
+    {
+        WideHomeItem.IsSelected = pageType == typeof(HomePage);
+        WideChatItem.IsSelected = pageType == typeof(ChatPage);
+        WideSettingsItem.IsSelected = pageType == typeof(SettingsPage);
+    }
 }

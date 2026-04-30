@@ -11,6 +11,7 @@
         <ResourceDictionary Source="ms-appx:///Styles/Typography.xaml" />
         <ResourceDictionary Source="ms-appx:///Styles/Motion.xaml" />
         <ResourceDictionary Source="ms-appx:///Styles/Aurora.xaml" />
+        <ResourceDictionary Source="ms-appx:///Styles/Icons.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

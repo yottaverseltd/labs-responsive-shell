@@ -28,24 +28,18 @@
                    Foreground="{ThemeResource TextBrush}"
                    Margin="0,0,0,24" />
         <StackPanel Grid.Row="1" Spacing="{StaticResource Space4}">
-          <Button x:Name="WideHomeButton"
-                  Click="OnNavigateHome"
-                  Content="Home"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Left"
-                  Style="{StaticResource NavButtonStyle}" />
-          <Button x:Name="WideChatButton"
-                  Click="OnNavigateChat"
-                  Content="Chat"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Left"
-                  Style="{StaticResource NavButtonStyle}" />
-          <Button x:Name="WideSettingsButton"
-                  Click="OnNavigateSettings"
-                  Content="Settings"
-                  HorizontalAlignment="Stretch"
-                  HorizontalContentAlignment="Left"
-                  Style="{StaticResource NavButtonStyle}" />
+          <shell:NavItem x:Name="WideHomeItem"
+                         Click="OnNavigateHome"
+                         IconData="{StaticResource IconHomeData}"
+                         Label="Home" />
+          <shell:NavItem x:Name="WideChatItem"
+                         Click="OnNavigateChat"
+                         IconData="{StaticResource IconChatData}"
+                         Label="Chat" />
+          <shell:NavItem x:Name="WideSettingsItem"
+                         Click="OnNavigateSettings"
+                         IconData="{StaticResource IconSettingsData}"
+                         Label="Settings" />
         </StackPanel>
         <shell:IdentityChip Grid.Row="2" />
       </Grid>
