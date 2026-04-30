@@ -5,9 +5,49 @@
   Background="{ThemeResource BgBrush}"
   Foreground="{ThemeResource TextBrush}">
 
-  <TextBlock Text="Settings"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"
-             FontSize="{StaticResource FontSize28}" />
+  <ScrollViewer>
+    <StackPanel Padding="{StaticResource Space32}"
+                Spacing="{StaticResource Space24}"
+                MaxWidth="640"
+                HorizontalAlignment="Left">
+
+      <TextBlock Text="Settings"
+                 FontSize="{StaticResource FontSize28}"
+                 FontWeight="SemiBold"
+                 Foreground="{ThemeResource TextBrush}" />
+
+      <Border Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="1"
+              CornerRadius="{StaticResource Radius12}"
+              Padding="{StaticResource Space24}">
+        <StackPanel Spacing="{StaticResource Space16}">
+          <TextBlock Text="Appearance"
+                     FontSize="{StaticResource FontSize14}"
+                     Foreground="{ThemeResource TextMutedBrush}" />
+          <ToggleSwitch Header="Dark theme"
+                        IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
+          <ToggleSwitch Header="Right to left"
+                        IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
+          <ToggleSwitch Header="Reduced motion"
+                        IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+        </StackPanel>
+      </Border>
+
+      <StackPanel Spacing="{StaticResource Space8}">
+        <TextBlock Text="About this lab"
+                   FontSize="{StaticResource FontSize14}"
+                   Foreground="{ThemeResource TextMutedBrush}" />
+        <TextBlock FontSize="{StaticResource FontSize14}"
+                   Foreground="{ThemeResource TextBrush}"
+                   LineHeight="22"
+                   Text="labs-responsive-shell is a minimal Uno Platform sample. It demonstrates a responsive shell, a token-driven style layer, and reduced-motion awareness. No network, no telemetry, no auth." />
+        <HyperlinkButton NavigateUri="https://github.com/yottaverseltd/labs-responsive-shell"
+                         Padding="0"
+                         Content="github.com/yottaverseltd/labs-responsive-shell" />
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
 
 </Page>

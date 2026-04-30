@@ -2,12 +2,144 @@
   x:Class="LabsResponsiveShell.Pages.ChatPage"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:chat="using:LabsResponsiveShell.Pages"
   Background="{ThemeResource BgBrush}"
   Foreground="{ThemeResource TextBrush}">
 
-  <TextBlock Text="Chat"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"
-             FontSize="{StaticResource FontSize28}" />
+  <Page.Resources>
+
+    <DataTemplate x:Key="ConversationRowTemplate" x:DataType="chat:Conversation">
+      <Grid Padding="{StaticResource Space12}"
+            RowDefinitions="Auto,Auto"
+            RowSpacing="{StaticResource Space4}"
+            ColumnDefinitions="*,Auto">
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="{x:Bind Name}"
+                   FontSize="{StaticResource FontSize14}"
+                   FontWeight="SemiBold"
+                   Foreground="{ThemeResource TextBrush}" />
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{x:Bind When}"
+                   FontSize="{StaticResource FontSize12}"
+                   Foreground="{ThemeResource TextMutedBrush}" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="{x:Bind Preview}"
+                   FontSize="{StaticResource FontSize12}"
+                   Foreground="{ThemeResource TextMutedBrush}"
+                   TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MessageRowTemplate" x:DataType="chat:Message">
+      <Grid Margin="0,4"
+            HorizontalAlignment="{x:Bind Alignment}">
+        <Border Background="{x:Bind BubbleBrush}"
+                CornerRadius="{StaticResource Radius12}"
+                Padding="12,8"
+                MaxWidth="520">
+          <StackPanel Spacing="{StaticResource Space4}">
+            <TextBlock Text="{x:Bind Body}"
+                       FontSize="{StaticResource FontSize14}"
+                       Foreground="{ThemeResource TextBrush}"
+                       TextWrapping="Wrap" />
+            <TextBlock Text="{x:Bind When}"
+                       FontSize="{StaticResource FontSize12}"
+                       Foreground="{ThemeResource TextMutedBrush}" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </DataTemplate>
+
+  </Page.Resources>
+
+  <Grid x:Name="Root">
+
+    <Grid x:Name="WideLayout"
+          ColumnDefinitions="320,*"
+          Visibility="Collapsed">
+      <Border Grid.Column="0"
+              Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="0,0,1,0">
+        <ListView x:Name="WideList"
+                  ItemsSource="{x:Bind ViewModel.Conversations}"
+                  SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
+                  ItemTemplate="{StaticResource ConversationRowTemplate}"
+                  SelectionChanged="OnSelectionChanged" />
+      </Border>
+      <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="{StaticResource Space16}">
+        <TextBlock Grid.Row="0"
+                   Text="{x:Bind ViewModel.Selected.Name, Mode=OneWay, FallbackValue=''}"
+                   FontSize="{StaticResource FontSize20}"
+                   FontWeight="SemiBold"
+                   Foreground="{ThemeResource TextBrush}"
+                   Margin="0,0,0,12" />
+        <ScrollViewer Grid.Row="1">
+          <ItemsControl ItemsSource="{x:Bind ViewModel.Selected.Messages, Mode=OneWay, FallbackValue={x:Null}}"
+                        ItemTemplate="{StaticResource MessageRowTemplate}" />
+        </ScrollViewer>
+      </Grid>
+    </Grid>
+
+    <Grid x:Name="NarrowList" Visibility="Collapsed">
+      <ListView ItemsSource="{x:Bind ViewModel.Conversations}"
+                SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
+                ItemTemplate="{StaticResource ConversationRowTemplate}"
+                SelectionChanged="OnSelectionChanged" />
+    </Grid>
+
+    <Grid x:Name="NarrowThread"
+          RowDefinitions="Auto,*"
+          Visibility="Collapsed">
+      <Grid Grid.Row="0"
+            Background="{ThemeResource SurfaceBrush}"
+            BorderBrush="{ThemeResource BorderBrush}"
+            BorderThickness="0,0,0,1"
+            ColumnDefinitions="Auto,*"
+            Padding="{StaticResource Space12}">
+        <Button Grid.Column="0"
+                Click="OnBackToList"
+                Content="Back"
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="{ThemeResource TextBrush}" />
+        <TextBlock Grid.Column="1"
+                   Text="{x:Bind ViewModel.Selected.Name, Mode=OneWay, FallbackValue=''}"
+                   FontSize="{StaticResource FontSize16}"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   Margin="12,0,0,0" />
+      </Grid>
+      <ScrollViewer Grid.Row="1" Padding="{StaticResource Space16}">
+        <ItemsControl ItemsSource="{x:Bind ViewModel.Selected.Messages, Mode=OneWay, FallbackValue={x:Null}}"
+                      ItemTemplate="{StaticResource MessageRowTemplate}" />
+      </ScrollViewer>
+    </Grid>
+
+    <VisualStateManager.VisualStateGroups>
+      <VisualStateGroup x:Name="Breakpoint">
+        <VisualState x:Name="NarrowState">
+          <VisualState.StateTriggers>
+            <AdaptiveTrigger MinWindowWidth="0" />
+          </VisualState.StateTriggers>
+        </VisualState>
+        <VisualState x:Name="WideState">
+          <VisualState.StateTriggers>
+            <AdaptiveTrigger MinWindowWidth="768" />
+          </VisualState.StateTriggers>
+          <VisualState.Setters>
+            <Setter Target="WideLayout.Visibility" Value="Visible" />
+            <Setter Target="NarrowList.Visibility" Value="Collapsed" />
+            <Setter Target="NarrowThread.Visibility" Value="Collapsed" />
+          </VisualState.Setters>
+        </VisualState>
+      </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+  </Grid>
 
 </Page>

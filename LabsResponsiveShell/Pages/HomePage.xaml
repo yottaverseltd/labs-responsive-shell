@@ -5,9 +5,60 @@
   Background="{ThemeResource BgBrush}"
   Foreground="{ThemeResource TextBrush}">
 
-  <TextBlock Text="Home"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center"
-             FontSize="{StaticResource FontSize28}" />
+  <ScrollViewer>
+    <Grid Padding="{StaticResource Space32}"
+          RowDefinitions="Auto,Auto,Auto"
+          RowSpacing="{StaticResource Space32}"
+          MaxWidth="880"
+          HorizontalAlignment="Center">
+
+      <StackPanel Grid.Row="0" Spacing="{StaticResource Space16}">
+        <TextBlock Text="Proof, not pitch."
+                   FontSize="{StaticResource FontSize40}"
+                   FontWeight="SemiBold"
+                   Foreground="{ThemeResource TextBrush}" />
+        <TextBlock FontSize="{StaticResource FontSize16}"
+                   Foreground="{ThemeResource TextMutedBrush}"
+                   LineHeight="26"
+                   MaxWidth="620"
+                   Text="A small Uno shell. Responsive on day one, token-driven, reduced-motion aware. Toggle any setting and watch the app respond." />
+      </StackPanel>
+
+      <Border Grid.Row="1"
+              Background="{ThemeResource SurfaceBrush}"
+              BorderBrush="{ThemeResource BorderBrush}"
+              BorderThickness="1"
+              CornerRadius="{StaticResource Radius16}"
+              Padding="{StaticResource Space24}">
+        <StackPanel Spacing="{StaticResource Space16}">
+          <TextBlock Text="Try it"
+                     FontSize="{StaticResource FontSize20}"
+                     Foreground="{ThemeResource TextBrush}" />
+          <TextBlock Text="Three switches, one shell. Nothing else wired."
+                     FontSize="{StaticResource FontSize14}"
+                     Foreground="{ThemeResource TextMutedBrush}" />
+          <StackPanel Spacing="{StaticResource Space12}">
+            <ToggleSwitch Header="Dark theme"
+                          IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
+            <ToggleSwitch Header="Right to left"
+                          IsOn="{Binding IsRightToLeft, Mode=TwoWay}" />
+            <ToggleSwitch Header="Reduced motion"
+                          IsOn="{Binding IsReducedMotion, Mode=TwoWay}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <StackPanel Grid.Row="2" Spacing="{StaticResource Space8}">
+        <TextBlock Text="What you are looking at"
+                   FontSize="{StaticResource FontSize14}"
+                   Foreground="{ThemeResource TextMutedBrush}" />
+        <TextBlock FontSize="{StaticResource FontSize14}"
+                   Foreground="{ThemeResource TextBrush}"
+                   LineHeight="22"
+                   Text="The nav rail collapses into a bottom tab bar under 768 px. Colors resolve through a token layer. Durations clamp to zero under prefers-reduced-motion." />
+      </StackPanel>
+
+    </Grid>
+  </ScrollViewer>
 
 </Page>
