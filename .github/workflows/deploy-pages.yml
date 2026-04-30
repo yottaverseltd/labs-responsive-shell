@@ -29,14 +29,21 @@ jobs:
       - name: install wasm-tools
         run: dotnet workload install wasm-tools
 
-      # Pages must use Source: GitHub Actions (once per repo under Settings → Pages); see README Troubleshooting.
+      # linux: wasm-only restore avoids Android workload (NETSDK1147).
+
+      - name: restore wasm only
+        run: >
+          dotnet restore LabsResponsiveShell/LabsResponsiveShell.csproj
+          -p:TargetFrameworks=net9.0-browserwasm
 
       - name: publish wasm
         run: >
           dotnet publish LabsResponsiveShell/LabsResponsiveShell.csproj
+          --no-restore
           -c Release -f net9.0-browserwasm
           -o artifacts/wasm
           -p:TreatWarningsAsErrors=true
+          -p:TargetFrameworks=net9.0-browserwasm
           -p:WasmShellWebAppBasePath=/labs-responsive-shell/
 
       # why: _framework starts with underscore, Jekyll would drop it on Pages

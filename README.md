@@ -2,7 +2,11 @@
 
 Mock messaging shell for Uno Platform: responsive layout, shared tokens, motion that respects reduced motion.
 
+## Try it on GitHub Pages
+
 **Live:** https://yottaverseltd.github.io/labs-responsive-shell/
+
+**Prerequisites:** none for WASM. **Desktop zip** and **Android APK** appear on the **`continuous`** prerelease after a green **`ci`** run on **`main`**: https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous
 
 **Troubleshooting:** If the live URL returns 404, open **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**, then re-run the latest **deploy-pages** workflow.
 

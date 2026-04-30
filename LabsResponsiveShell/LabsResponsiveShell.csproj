@@ -37,6 +37,7 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidUseAapt2>true</AndroidUseAapt2>
+    <RunAOTCompilation>false</RunAOTCompilation>
   </PropertyGroup>
 
 </Project>
