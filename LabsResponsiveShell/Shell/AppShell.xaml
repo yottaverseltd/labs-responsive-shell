@@ -22,7 +22,9 @@
             RowDefinitions="Auto,*,Auto">
         <TextBlock Grid.Row="0"
                    Text="labs"
+                   FontFamily="{StaticResource PrimaryFontFamily}"
                    FontSize="{StaticResource FontSize20}"
+                   FontWeight="SemiBold"
                    Foreground="{ThemeResource TextBrush}"
                    Margin="0,0,0,24" />
         <StackPanel Grid.Row="1" Spacing="{StaticResource Space4}">
@@ -62,7 +64,9 @@
             Padding="{StaticResource Space16}">
         <TextBlock Grid.Column="0"
                    Text="labs"
+                   FontFamily="{StaticResource PrimaryFontFamily}"
                    FontSize="{StaticResource FontSize20}"
+                   FontWeight="SemiBold"
                    Foreground="{ThemeResource TextBrush}"
                    VerticalAlignment="Center" />
         <shell:IdentityChip Grid.Column="1" />
@@ -122,6 +126,7 @@
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="BorderThickness" Value="0" />
       <Setter Property="Foreground" Value="{ThemeResource TextBrush}" />
+      <Setter Property="FontFamily" Value="{StaticResource PrimaryFontFamily}" />
       <Setter Property="Padding" Value="12,10" />
       <Setter Property="FontSize" Value="{StaticResource FontSize14}" />
       <Setter Property="CornerRadius" Value="{StaticResource Radius8}" />

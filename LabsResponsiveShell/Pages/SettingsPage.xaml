@@ -11,11 +11,12 @@
                 MaxWidth="{StaticResource ReadingColumnMaxWidth}"
                 HorizontalAlignment="Left">
 
-      <TextBlock Text="Settings"
-                 FontSize="{StaticResource FontSize28}"
-                 FontWeight="SemiBold"
-                 Foreground="{ThemeResource TextBrush}"
-                 TextWrapping="Wrap" />
+      <StackPanel Spacing="{StaticResource Space8}">
+        <TextBlock Style="{StaticResource EyebrowText}"
+                   Text="PREFERENCES" />
+        <TextBlock Style="{StaticResource TitleText}"
+                   Text="Settings" />
+      </StackPanel>
 
       <Border Background="{ThemeResource SurfaceBrush}"
               BorderBrush="{ThemeResource BorderBrush}"
@@ -23,10 +24,8 @@
               CornerRadius="{StaticResource Radius12}"
               Padding="{StaticResource Space24}">
         <StackPanel Spacing="{StaticResource Space16}">
-          <TextBlock Text="Appearance"
-                     FontSize="{StaticResource FontSize14}"
-                     Foreground="{ThemeResource TextMutedBrush}"
-                     TextWrapping="Wrap" />
+          <TextBlock Style="{StaticResource EyebrowText}"
+                     Text="APPEARANCE" />
           <ToggleSwitch Header="Dark theme"
                         IsOn="{Binding IsDarkTheme, Mode=TwoWay}" />
           <ToggleSwitch Header="Right to left"
@@ -37,14 +36,9 @@
       </Border>
 
       <StackPanel Spacing="{StaticResource Space8}">
-        <TextBlock Text="About this lab"
-                   FontSize="{StaticResource FontSize14}"
-                   Foreground="{ThemeResource TextMutedBrush}"
-                   TextWrapping="Wrap" />
-        <TextBlock FontSize="{StaticResource FontSize14}"
-                   Foreground="{ThemeResource TextBrush}"
-                   LineHeight="22"
-                   TextWrapping="Wrap"
+        <TextBlock Style="{StaticResource EyebrowText}"
+                   Text="ABOUT THIS LAB" />
+        <TextBlock Style="{StaticResource BodyText}"
                    Text="labs-responsive-shell is a minimal Uno Platform sample. It demonstrates a responsive shell, a token-driven style layer, and reduced-motion awareness. No network, no telemetry, no auth." />
         <HyperlinkButton NavigateUri="https://github.com/yottaverseltd/labs-responsive-shell"
                          Padding="0"

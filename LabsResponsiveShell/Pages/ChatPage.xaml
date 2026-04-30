@@ -16,21 +16,21 @@
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
                    Text="{x:Bind Name}"
+                   FontFamily="{StaticResource PrimaryFontFamily}"
                    FontSize="{StaticResource FontSize14}"
                    FontWeight="SemiBold"
                    Foreground="{ThemeResource TextBrush}" />
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
                    Text="{x:Bind When}"
-                   FontSize="{StaticResource FontSize12}"
-                   Foreground="{ThemeResource TextMutedBrush}" />
+                   Style="{StaticResource CaptionText}" />
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Text="{x:Bind Preview}"
-                   FontSize="{StaticResource FontSize12}"
-                   Foreground="{ThemeResource TextMutedBrush}"
-                   TextTrimming="CharacterEllipsis" />
+                   Style="{StaticResource CaptionText}"
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="NoWrap" />
       </Grid>
     </DataTemplate>
 
@@ -43,12 +43,13 @@
                 MaxWidth="520">
           <StackPanel Spacing="{StaticResource Space4}">
             <TextBlock Text="{x:Bind Body}"
+                       FontFamily="{StaticResource PrimaryFontFamily}"
                        FontSize="{StaticResource FontSize14}"
+                       LineHeight="20"
                        Foreground="{ThemeResource TextBrush}"
                        TextWrapping="Wrap" />
             <TextBlock Text="{x:Bind When}"
-                       FontSize="{StaticResource FontSize12}"
-                       Foreground="{ThemeResource TextMutedBrush}" />
+                       Style="{StaticResource CaptionText}" />
           </StackPanel>
         </Border>
       </Grid>
@@ -74,9 +75,7 @@
       <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="{StaticResource Space16}">
         <TextBlock Grid.Row="0"
                    Text="{x:Bind ViewModel.Selected.Name, Mode=OneWay, FallbackValue=''}"
-                   FontSize="{StaticResource FontSize20}"
-                   FontWeight="SemiBold"
-                   Foreground="{ThemeResource TextBrush}"
+                   Style="{StaticResource TitleText}"
                    Margin="0,0,0,12" />
         <ScrollViewer Grid.Row="1">
           <ItemsControl ItemsSource="{x:Bind ViewModel.Selected.Messages, Mode=OneWay, FallbackValue={x:Null}}"
@@ -109,8 +108,10 @@
                 Foreground="{ThemeResource TextBrush}" />
         <TextBlock Grid.Column="1"
                    Text="{x:Bind ViewModel.Selected.Name, Mode=OneWay, FallbackValue=''}"
+                   FontFamily="{StaticResource PrimaryFontFamily}"
                    FontSize="{StaticResource FontSize16}"
                    FontWeight="SemiBold"
+                   Foreground="{ThemeResource TextBrush}"
                    VerticalAlignment="Center"
                    Margin="12,0,0,0" />
       </Grid>
