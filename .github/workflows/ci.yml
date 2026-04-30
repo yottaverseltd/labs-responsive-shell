@@ -16,7 +16,8 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 45
+    # Android AOT + full tri-TFM compile can exceed 45 minutes on congested runners; keep headroom for publish + release upload.
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -26,15 +27,26 @@ jobs:
           global-json-file: global.json
 
       - name: install workloads
+        shell: pwsh
         run: |
           dotnet workload install wasm-tools
-          dotnet workload install android
+          $onMain = $env:GITHUB_REF -eq 'refs/heads/main' -and ($env:GITHUB_EVENT_NAME -eq 'push' -or $env:GITHUB_EVENT_NAME -eq 'workflow_dispatch')
+          if ($onMain) {
+            dotnet workload install android
+          }
 
       - name: restore
         run: dotnet restore
 
-      - name: build (all targets)
-        run: dotnet build -c Release /p:TreatWarningsAsErrors=true --no-restore
+      - name: build (wasm + desktop)
+        shell: pwsh
+        run: |
+          dotnet build -c Release -f net9.0-browserwasm /p:TreatWarningsAsErrors=true --no-restore
+          dotnet build -c Release -f net9.0-desktop /p:TreatWarningsAsErrors=true --no-restore
+
+      - name: build (android, main only)
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        run: dotnet build -c Release -f net9.0-android /p:TreatWarningsAsErrors=true --no-restore
 
       - name: publish wasm
         run: >
@@ -50,7 +62,7 @@ jobs:
           retention-days: 14
 
       - name: publish desktop (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: >
           dotnet publish LabsResponsiveShell/LabsResponsiveShell.csproj
           -c Release -f net9.0-desktop
@@ -58,12 +70,12 @@ jobs:
           /p:TreatWarningsAsErrors=true
 
       - name: zip desktop (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         shell: pwsh
         run: Compress-Archive -Path publish/desktop/* -DestinationPath labs-responsive-shell-net9.0-desktop.zip -Force
 
       - name: publish android (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: >
           dotnet publish LabsResponsiveShell/LabsResponsiveShell.csproj
           -c Release -f net9.0-android
@@ -71,7 +83,7 @@ jobs:
           /p:TreatWarningsAsErrors=true
 
       - name: stage apk (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         shell: pwsh
         run: |
           $apk = Get-ChildItem -Path publish/android -Filter *.apk -Recurse | Select-Object -First 1
@@ -79,7 +91,7 @@ jobs:
           Copy-Item $apk.FullName -Destination labs-responsive-shell-net9.0-android.apk -Force
 
       - uses: actions/upload-artifact@v4
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         with:
           name: desktop-windows
           path: labs-responsive-shell-net9.0-desktop.zip
@@ -87,7 +99,7 @@ jobs:
           retention-days: 30
 
       - uses: actions/upload-artifact@v4
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         with:
           name: android-apk
           path: labs-responsive-shell-net9.0-android.apk
@@ -95,7 +107,7 @@ jobs:
           retention-days: 30
 
       - name: upsert continuous release (main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

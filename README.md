@@ -10,9 +10,9 @@ Mock messaging shell for Uno Platform: responsive layout, shared tokens, motion 
 
 **Troubleshooting:** If the live URL returns 404, open **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**, then re-run the latest **deploy-pages** workflow.
 
-**Desktop (Windows):** https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous — download `labs-responsive-shell-net9.0-desktop.zip` (refreshed on every successful `main` build).
+**Desktop (Windows):** https://github.com/yottaverseltd/labs-responsive-shell/releases/download/continuous/labs-responsive-shell-net9.0-desktop.zip — direct download (`labs-responsive-shell-net9.0-desktop.zip`, refreshed on every successful `main` build). Release hub: https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous
 
-**Android:** https://github.com/yottaverseltd/labs-responsive-shell/releases/tag/continuous — download `labs-responsive-shell-net9.0-android.apk`. Sideload only; Android may show an “unknown publisher” warning because the CI build uses an ephemeral debug-style signing key.
+**Android:** https://github.com/yottaverseltd/labs-responsive-shell/releases/download/continuous/labs-responsive-shell-net9.0-android.apk — direct download (`labs-responsive-shell-net9.0-android.apk`). Sideload only; Android may show an “unknown publisher” warning because the CI build uses an ephemeral debug-style signing key.
 
 **Source:** https://github.com/yottaverseltd/labs-responsive-shell
 
@@ -41,7 +41,7 @@ dotnet run --project LabsResponsiveShell/LabsResponsiveShell.csproj -f net9.0-de
 
 ## CI
 
-- [`ci.yml`](.github/workflows/ci.yml) — Release build for **wasm**, **desktop**, and **android** on every push and PR; on `main`, publishes a **continuous** prerelease with the `.zip` and `.apk`, and uploads **desktop-windows** / **android-apk** workflow artifacts.
+- [`ci.yml`](.github/workflows/ci.yml) — On PRs and non-`main` branches: **wasm** + **desktop** only (fast). On **`main`** (push or manual **workflow dispatch**): adds **Android** publish, then upserts the **`continuous`** prerelease asset URLs above and uploads **desktop-windows** / **android-apk** artifacts.
 - [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) — WASM to GitHub Pages.
 - [`release-desktop.yml`](.github/workflows/release-desktop.yml) — Optional desktop zip when you push a `v*` tag.
 
