@@ -26,6 +26,9 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: install wasm-tools
+        run: dotnet workload install wasm-tools
+
       - name: configure pages
         uses: actions/configure-pages@v5
         with:
