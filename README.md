@@ -2,7 +2,9 @@
 
 A messaging app shell in Uno. Responsive, themed, motion-aware.
 
-Live: https://yottaverseltd.github.io/labs-responsive-shell/
+**Live:** https://yottaverseltd.github.io/labs-responsive-shell/
+
+**Source:** https://github.com/yottaverseltd/labs-responsive-shell
 
 ## Downloads
 
